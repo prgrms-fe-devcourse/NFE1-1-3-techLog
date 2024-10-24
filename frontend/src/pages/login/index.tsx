@@ -1,9 +1,12 @@
 import React from 'react';
-import Container from './index.styles';
+import { useNavigate } from 'react-router-dom';
+import { Container, UnderlinedText } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton';
+import PATH from '../../constants/path';
 
 export default function Login() {
+  const navigate = useNavigate();
   return (
     <Container>
       <h1>
@@ -26,7 +29,16 @@ export default function Login() {
         }}
         width="50rem"
       />
-      <div />
+      <p>
+        아직 계정이 없으신가요?{' '}
+        <UnderlinedText
+          onClick={() => {
+            navigate(PATH.SIGNUP);
+          }}
+        >
+          회원가입하러 가기
+        </UnderlinedText>
+      </p>
       <AuthButton
         title="로그인"
         onClick={() => {
