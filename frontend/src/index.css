@@ -1,3 +1,7 @@
+/* Google Fonts ABeeZee 불러오기 */
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital,wght@0,400;1,400&display=swap');
+
+/* 기존 전역 설정 */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* 특정 요소에만 ABeeZee 폰트 적용 */
+.specific-element {
+  font-family: 'ABeeZee', sans-serif;
 }
