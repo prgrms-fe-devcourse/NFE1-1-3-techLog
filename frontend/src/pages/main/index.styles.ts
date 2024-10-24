@@ -7,7 +7,6 @@ export const Container = styled.div`
   gap: 2rem;
   padding: 6.7rem;
   display: flex;
-  background-color: gray;
   h1 {
     font-size: 4.5rem;
     font-weight: 600;
