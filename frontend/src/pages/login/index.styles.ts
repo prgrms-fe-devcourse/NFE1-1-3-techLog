@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   gap: 2rem;
   padding: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 10px solid blue; */
   h1 {
     font-size: 5rem;
     font-family: 'ABeeZee', sans-serif;
@@ -18,6 +17,16 @@ const Container = styled.div`
   }
   div {
     padding-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+  p {
+    width: 50rem;
+    color: #575767;
   }
 `;
-export default Container;
+
+export const UnderlinedText = styled.span`
+  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 1rem;
+`;
