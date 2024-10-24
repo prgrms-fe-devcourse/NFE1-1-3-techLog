@@ -8,6 +8,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   /* border: 10px solid blue; */
+  h1 {
+    font-size: 5rem;
+    font-family: 'ABeeZee', sans-serif;
+    font-style: italic;
+  }
   h2 {
     padding-bottom: 7rem;
   }
