@@ -5,6 +5,8 @@ import Main from './pages/main';
 import MainLayout from './components/Layout/MainLayout';
 import DefaultLayout from './components/Layout/DefaultLayout';
 import Login from './pages/login';
+import Signup from './pages/signup';
+
 
 function App() {
   return (
@@ -12,6 +14,10 @@ function App() {
       <Routes>
         <Route path={PATH.LOGIN} element={<DefaultLayout />}>
           <Route index element={<Login />} />
+        </Route>
+
+        <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
+          <Route index element={<Signup />} />
         </Route>
         {/* <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
           <Route index element={<Signup />} />
