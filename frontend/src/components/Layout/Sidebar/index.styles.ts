@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding-top: 8rem;
   h1 {
     font-size: 3.2rem;
-    padding: 2rem 2rem 2rem 3rem;
+    padding: 0 2rem 2rem 3rem;
     font-family: 'ABeeZee', sans-serif;
     font-style: italic;
     padding-bottom: 3rem;
