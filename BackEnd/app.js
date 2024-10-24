@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-// const postRoutes = require('./routes/postRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
@@ -20,6 +20,6 @@ mongoose
 app.use(express.json());
 
 // 라우트 설정
-// app.use('/posts', postRoutes);
+app.use('/posts', postRoutes);
 
 module.exports = app;
