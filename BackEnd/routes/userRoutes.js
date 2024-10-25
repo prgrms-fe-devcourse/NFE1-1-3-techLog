@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const postController = require(
-  path.join(__dirname, '../controllers/userController'),
+const userController = require(
+  path.join(__dirname, '../controllers/userController.js'),
 );
 
-// user sign up
+// user signup
+router.post('/signup', userController.signupUser);
 
-// user sign in
+// user login
+// router.post('/user/login', userController.loginUser);
 
 module.exports = router;
