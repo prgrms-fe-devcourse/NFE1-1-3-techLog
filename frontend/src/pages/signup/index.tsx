@@ -140,6 +140,7 @@ export default function Signup() {
       <InputPassWordWrapper>
         <InputWithLabel
           label="비밀번호"
+          type="password"
           placeholder="영문,숫자,특수문자 조합 8~16자"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
@@ -152,6 +153,7 @@ export default function Signup() {
       <InputPassWordWrapper>
         <InputWithLabel
           label="비밀번호 확인"
+          type="password"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setConfirmPassword(e.target.value)
           }
