@@ -1,1 +1,2 @@
-const user = require('../models/user');
+const path = require('path');
+const user = require(path.join(__dirname, '../models/user'));

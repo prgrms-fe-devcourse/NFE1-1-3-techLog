@@ -1,4 +1,5 @@
-const Post = require('../models/post');
+const path = require('path');
+const Post = require(path.join(__dirname, '../models/post'));
 
 exports.createPost = async (req, res) => {
   try {
