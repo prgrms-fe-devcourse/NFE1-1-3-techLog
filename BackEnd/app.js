@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
+const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use(express.json());
 
 // 라우트 설정
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 module.exports = app;
