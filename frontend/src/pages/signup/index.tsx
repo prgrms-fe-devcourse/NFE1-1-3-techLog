@@ -52,7 +52,7 @@ export default function Login() {
       />
       <div />
       <AuthButton
-        title="가입완료"
+        title="가입하기"
         onClick={() => {
           console.log('확인');
         }}
