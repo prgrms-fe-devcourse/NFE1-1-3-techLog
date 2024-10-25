@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const postController = require('../controllers/postController');
+const path = require('path');
+const postController = require(
+  path.join(__dirname, '../controllers/postController'),
+);
 
 // Post Create Route
 router.post('/create', postController.createPost);
