@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton/index';
@@ -30,6 +31,7 @@ const ErrorMessage = styled.p`
 `;
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -107,6 +109,7 @@ export default function Signup() {
   const handleSubmit = () => {
     if (validate() && !isUsernameDuplicate) {
       console.log('유효성 검사 통과');
+      navigate('/login');
     } else {
       console.log('유효성 검사 실패');
     }
