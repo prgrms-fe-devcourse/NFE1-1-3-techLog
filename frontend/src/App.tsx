@@ -5,7 +5,7 @@ import Main from './pages/main';
 import MainLayout from './components/Layout/MainLayout';
 import DefaultLayout from './components/Layout/DefaultLayout';
 import Login from './pages/login';
-import Signup from './pages/signup';
+import SignUp from './pages/signup';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         </Route>
 
         <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
-          <Route index element={<Signup />} />
+          <Route index element={<SignUp />} />
         </Route>
         {/* <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
           <Route index element={<Signup />} />
