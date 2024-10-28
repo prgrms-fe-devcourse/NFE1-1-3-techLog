@@ -7,6 +7,7 @@ const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 const readRoutes = require(path.join(__dirname, './routes/readRoutes'));
 const readAllRoutes = require(path.join(__dirname, './routes/readAllRoutes'));
+const deleteRoutes = require(path.join(__dirname, './routes/deleteRoutes'));
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
 app.use('/posts', readRoutes); 
 app.use('/posts', readAllRoutes);
+app.use('/posts', deleteRoutes); 
 
 module.exports = app;
