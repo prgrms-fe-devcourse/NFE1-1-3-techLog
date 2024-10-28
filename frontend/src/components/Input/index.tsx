@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface InputWithLabelProps {
   label: string;
   placeholder?: string;
+  type?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   width?: string;
 }
@@ -35,13 +36,14 @@ const Input = styled.input<{ width?: string }>`
 function InputWithLabel({
   label,
   placeholder,
+  type,
   onChange,
   width,
 }: InputWithLabelProps) {
   return (
     <div>
       <Label>{label}</Label>
-      <Input placeholder={placeholder} onChange={onChange} width={width} />
+      <Input placeholder={placeholder} type={type} onChange={onChange} width={width} />
     </div>
   );
 }
