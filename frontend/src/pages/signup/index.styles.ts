@@ -38,6 +38,7 @@ export const InputPassWordWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 50rem;
+  position: relative;
 `;
 
 export const ErrorMessage = styled.p`
