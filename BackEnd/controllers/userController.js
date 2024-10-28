@@ -8,7 +8,7 @@ const hashPassword = password => {
   return bcryptjs.hashSync(password, saltRounds);
 };
 
-// -------------------회원가입 로직-------------------
+// -------------------회원가입 로직---------------------------
 exports.signupUser = async (req, res) => {
   const { username, password } = req.body;
 
