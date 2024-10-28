@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 const Full = styled.div`
   width: 100%;
@@ -9,33 +10,25 @@ const Full = styled.div`
   align-items: center;
   font-size: 1.5rem;
   flex-direction: column;
-  background-color: white;
 `;
 
 const Inner = styled.div`
   width: 100%;
-  border: 10px solid blue;
-  padding-top: 5.5rem;
-  background-color: white;
   height: 100vh;
   position: relative;
   overflow-x: auto;
+  display: flex;
 `;
 
 const Container = styled.div`
-  width: 123.8rem;
-  border: 2px solid red;
-  display: flex;
+  flex-grow: 1;
   justify-content: center;
-  position: absolute; /* 수정 */
-  flex-wrap: nowrap;
-  left: 17rem;
 `;
 export default function MainLayout() {
   return (
     <Full>
       <Inner>
-        {/* <SideBar onClickSideBar={handleOutletClick} /> */}
+        <Sidebar />
         <Container>
           <Outlet />
         </Container>

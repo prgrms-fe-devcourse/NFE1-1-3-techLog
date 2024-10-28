@@ -38,6 +38,11 @@ a {
   ##Device = Laptops, Desktops
   ##Screen = B/w 1025px to 1280px
 */
+@media (max-width: 767px) {
+  html {
+    font-size: 7px;
+  }
+}
 @media (min-width: 768px) and (max-width: 1024px) {
   html {
     font-size: 7.5px;
