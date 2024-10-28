@@ -5,9 +5,9 @@ const path = require('path');
 const cors = require('cors');  // CORS 추가
 const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
+const readAllRoutes = require(path.join(__dirname, './routes/readAllRoutes'));
 
 const app = express();
-
 
 // MongoDB 연결
 mongoose
@@ -24,9 +24,9 @@ app.use(cors());  // CORS 미들웨어 추가
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 // 라우트 설정
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
+app.use('/posts', readAllRoutes);
 
 module.exports = app;
