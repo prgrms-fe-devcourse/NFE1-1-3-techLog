@@ -8,7 +8,7 @@ import { styled } from 'styled-components';
 
 const FlexContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 `;
 
@@ -16,6 +16,7 @@ const InputIDWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 38rem;
+  position: relative;
 `;
 
 const InputPassWordWrapper = styled.div`
@@ -28,6 +29,14 @@ const ErrorMessage = styled.p`
   text-align: left;
   color: red;
   margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 0;
+`;
+
+const DuplicateButtonWrapper = styled.div`
+  margin-top: 25px;
+  align-self: flex-start;
 `;
 
 export default function Signup() {
@@ -132,12 +141,14 @@ export default function Signup() {
           />
           {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
         </InputIDWrapper>
-        <DuplicateButton
-          title="중복확인"
-          onClick={() => {}}
-          disabled={!username}
-          width="11rem"
-        />
+        <DuplicateButtonWrapper>
+          <DuplicateButton
+            title="중복확인"
+            onClick={checkDuplicateUsername}
+            disabled={!isUsernameValid || isDuplicateCheckClicked}
+            width="11rem"
+          />
+        </DuplicateButtonWrapper>
       </FlexContainer>
 
       <InputPassWordWrapper>

@@ -8,11 +8,11 @@ interface DuplicateButtonProps {
   disabled?: boolean;
 }
 
-const Button = styled.button<{ width?: string }>`
+const Button = styled.button<{ width?: string; disabled?: boolean }>`
   width: ${({ width }) => width || '100%'};
-  padding: 1rem 0; /* 높이를 줄이기 위해 패딩 값 조정 */
-  background-color: ${({ disabled }) => (disabled ? '#000000' : '#000000')};
-  color: ${({ disabled }) => (disabled ? '#EEEEEE' : '#FFFFFF')};
+  padding: 1rem 0;
+  background-color: ${({ disabled }) => (disabled ? '#CCCCCC' : '#000000')}; /* 비활성화 시 회색, 활성화 시 검은색 */
+  color: ${({ disabled }) => (disabled ? '#666666' : '#FFFFFF')};
   font-size: 1.2rem;
   border: none;
   border-radius: 15px;
@@ -20,11 +20,11 @@ const Button = styled.button<{ width?: string }>`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${({ disabled }) => (disabled ? '#000000' : '#333333')};
+    background-color: ${({ disabled }) => (disabled ? '#CCCCCC' : '#333333')};
   }
 
   &:active {
-    background-color: ${({ disabled }) => (disabled ? '#E6E6E6' : '#000000')};
+    background-color: ${({ disabled }) => (disabled ? '#CCCCCC' : '#000000')};
   }
 
   &:focus {
