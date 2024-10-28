@@ -4,7 +4,6 @@ import { Container, FlexContainer, InputIDWrapper, InputPassWordWrapper, ErrorMe
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton/index';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
-import { styled } from 'styled-components';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -20,20 +19,25 @@ export default function Signup() {
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
 
+  // 아이디 유효성 검사 함수 (소문자 및 숫자만 허용, 6~18자)
   const validateUsername = (username: string) => {
-    const usernameRegex = /^[A-Za-z0-9]{1,10}$/;
+    const usernameRegex = /^[a-z0-9]{6,18}$/; // 소문자와 숫자만 허용, 6~18자
     return usernameRegex.test(username);
   };
 
+  const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,18}$/;
+    return passwordRegex.test(password);
+  };
+
   useEffect(() => {
-    // 아이디 유효성 검사
     if (validateUsername(username)) {
       setErrors(prevErrors => ({ ...prevErrors, username: '' }));
       setIsUsernameValid(true);
     } else {
       setErrors(prevErrors => ({
         ...prevErrors,
-        username: '아이디는 영문과 숫자 조합으로 10자 이내여야 합니다.',
+        username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
       }));
       setIsUsernameValid(false);
     }
@@ -44,16 +48,12 @@ export default function Signup() {
     let isValid = true;
 
     if (!validateUsername(username)) {
-      newErrors.username =
-        '아이디는 영문과 숫자 조합으로 10자 이내여야 합니다.';
+      newErrors.username = '아이디는 소문자 6자 이상 18자 이내여야 합니다.';
       isValid = false;
     }
 
-    const passwordRegex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
-    if (!passwordRegex.test(password)) {
-      newErrors.password =
-        '비밀번호는 영문, 숫자, 특수문자를 포함하여 8~16자이어야 합니다.';
+    if (!validatePassword(password)) {
+      newErrors.password = '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.';
       isValid = false;
     }
 
@@ -67,9 +67,7 @@ export default function Signup() {
   };
 
   const checkDuplicateUsername = () => {
-    // 서버에 중복확인 요청을 보낸다고 가정
     if (username === 'testuser') {
-      // 예시: 'testuser'가 중복된 아이디
       setIsUsernameDuplicate(true);
       setErrors(prevErrors => ({
         ...prevErrors,
@@ -79,7 +77,7 @@ export default function Signup() {
       setIsUsernameDuplicate(false);
       setErrors(prevErrors => ({ ...prevErrors, username: '' }));
     }
-    setIsDuplicateCheckClicked(true); // 중복 확인 버튼을 다시 누를 수 없게 설정
+    setIsDuplicateCheckClicked(true);
   };
 
   const handleSubmit = () => {
@@ -93,9 +91,7 @@ export default function Signup() {
 
   return (
     <Container>
-      <h1>
-        Tech log
-      </h1>
+      <h1>Tech log</h1>
       <h2>개발자들을 위한 기술 면접 공유 플랫폼</h2>
       <FlexContainer>
         <InputIDWrapper>
@@ -122,7 +118,7 @@ export default function Signup() {
         <InputWithLabel
           label="비밀번호"
           type="password"
-          placeholder="영문,숫자,특수문자 조합 8~16자"
+          placeholder="대문자, 소문자, 숫자, 특수문자 포함 10~18자"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
