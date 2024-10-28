@@ -94,7 +94,7 @@ export default function Signup() {
   return (
     <Container>
       <h1>
-        <img src="/logo.png" alt="logo" />
+        Tech log
       </h1>
       <h2>개발자들을 위한 기술 면접 공유 플랫폼</h2>
       <FlexContainer>
