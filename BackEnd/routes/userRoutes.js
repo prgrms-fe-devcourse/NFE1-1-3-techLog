@@ -8,6 +8,9 @@ const userController = require(
 // user signup
 router.post('/signup', userController.signupUser);
 
+// user idCheckUser
+router.post('/idCheck', userController.idCheckUser);
+
 // user login
 // router.post('/user/login', userController.loginUser);
 
