@@ -1,43 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from './index.styles';
+import { Container, FlexContainer, InputIDWrapper, InputPassWordWrapper, ErrorMessage, DuplicateButtonWrapper } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton/index';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
 import { styled } from 'styled-components';
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-`;
-
-const InputIDWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 38rem;
-  position: relative;
-`;
-
-const InputPassWordWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50rem;
-`;
-
-const ErrorMessage = styled.p`
-  text-align: left;
-  color: red;
-  margin: 0;
-  position: absolute;
-  top: 90%;
-  left: 0;
-`;
-
-const DuplicateButtonWrapper = styled.div`
-  margin-top: 25px;
-  align-self: flex-start;
-`;
 
 export default function Signup() {
   const navigate = useNavigate();
