@@ -1,12 +1,8 @@
-const path = require('path');
-const Post = require(path.join(__dirname, '../models/post'));
-
+const Post = require('../models/post');
 const mongoose = require('mongoose');
 
-exports.deletePost = async (req, res) => {
+exports.updatePost = async (req, res) => {
     try {
-        console.log('Delete request received for ID:', req.params.id);
-        
         // 1. ID 형식 유효성 검사
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             return res.status(400).json({
@@ -28,21 +24,41 @@ exports.deletePost = async (req, res) => {
         if (post.authorId !== req.token) {
             return res.status(403).json({
                 success: false,
-                message: "본인이 작성한 게시글만 삭제할 수 있습니다."
+                message: "본인이 작성한 게시글만 수정할 수 있습니다."
             });
         }
 
-        // 4. 게시글 삭제 실행
-        await Post.findByIdAndDelete(req.params.id);
+        // 4. 수정할 내용 검증
+        const { title, category, shortAnswer, detailedAnswer } = req.body;
         
-        // 5. 삭제 성공 응답
+        if (!title || !category || !shortAnswer || !detailedAnswer) {
+            return res.status(400).json({
+                success: false,
+                message: "필수 입력 항목이 누락되었습니다."
+            });
+        }
+
+        // 5. 게시글 수정 실행
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id,
+            {
+                title,
+                category,
+                shortAnswer,
+                detailedAnswer
+            },
+            { new: true } // 수정된 문서 반환
+        );
+
+        // 6. 수정 성공 응답
         return res.status(200).json({
             success: true,
-            message: "게시글이 성공적으로 삭제되었습니다."
+            message: "게시글이 성공적으로 수정되었습니다.",
+            data: updatedPost
         });
 
     } catch (error) {
-        console.error('Delete Post Error:', error);
+        console.error('Update Post Error:', error);
         return res.status(500).json({
             success: false,
             message: "서버 오류가 발생했습니다.",
