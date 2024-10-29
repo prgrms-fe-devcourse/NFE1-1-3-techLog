@@ -9,7 +9,7 @@ exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const userDoc = await User.findOne({ username });
+    // 입력값 검증
     if (!username || !password) {
       return res.status(400).json({
         status: 400,
@@ -18,6 +18,8 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    // 사용자 검색
+    const userDoc = await User.findOne({ username });
     if (!userDoc) {
       return res.status(404).json({
         status: 404,
@@ -26,6 +28,7 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    // 비밀번호 검증
     const isPasswordCorrect = await bcryptjs.compare(
       password,
       userDoc.password,
@@ -41,11 +44,13 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    // JWT 토큰 생성
     const payload = { id: userDoc._id, username: userDoc.username };
     const token = jwt.sign(payload, secretKey, {
       expiresIn: TOKEN_EXPIRE_TIME,
     });
 
+    // 쿠키 옵션 설정
     const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -54,6 +59,7 @@ exports.loginUser = async (req, res) => {
       path: '/',
     };
 
+    // 응답 전송
     return res.cookie('token', token, cookieOptions).json({
       status: 200,
       success: true,
@@ -72,7 +78,3 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
-const { compare } = require('bcryptjs');
-const { json } = require('body-parser');
-const { sign } = require('jsonwebtoken');
-const { default: error } = require('next/error');
