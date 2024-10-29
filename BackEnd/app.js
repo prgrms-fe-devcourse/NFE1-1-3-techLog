@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 // 라우트 설정
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
-app.use('/posts', readRoutes); 
+app.use('/posts', readRoutes);
 app.use('/posts', readAllRoutes);
-app.use('/posts', deleteRoutes); 
+app.use('/posts', deleteRoutes);
 app.use('/posts', updateRoutes);
 
 module.exports = app;

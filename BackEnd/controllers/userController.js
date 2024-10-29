@@ -1,8 +1,14 @@
 const path = require('path');
 const User = require(path.join(__dirname, '../models/user'));
 const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { env } = require('process');
 
-// -------------------유효성 검사 객체---------------------------
+const secretKey = process.env.SECRET_KEY;
+const TOKEN_EXPIRE_TIME = '24h'; // 토큰 만료 시간 (임시)
+const COOKIE_EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24시간 (임시)
+
+// -------------------유효성 검사 객체------------------------
 const validators = {
   // 아이디 유효성 검사 객체
   validateUsername: username => {
@@ -123,7 +129,7 @@ exports.signupUser = async (req, res) => {
   }
 };
 
-// -------------------username 중복확인 로직-------------------
+// -------------------username 중복확인 로직------------------
 exports.idCheckUser = async (req, res) => {
   const { username } = req.body;
 
@@ -163,5 +169,82 @@ exports.idCheckUser = async (req, res) => {
   }
 };
 
-// -------------------로그인 로직-------------------
-// TODO
+// -------------------로그인 로직-----------------------------
+exports.loginUser = async (req, res) => {
+  // username, password 입력 받기
+  const { username, password } = req.body;
+
+  try {
+    // db에 user 정보 찾기
+    const userDoc = await User.findOne({ username });
+
+    // username이 잘못된 경우
+    if (!userDoc) {
+      return res.status(404).json({
+        status: 404,
+        success: false,
+        errors: {
+          message: '존재하지 않는 사용자입니다',
+          field: 'username',
+        },
+      });
+    }
+
+    // 비밀번호 검증
+    const isPasswordCorrect = await bcryptjs.compare(
+      password,
+      userDoc.password,
+    );
+
+    // 비밀번호가 db에 있는 password와 일치하지 않는 경우
+    if (!isPasswordCorrect) {
+      res.status(401).json({
+        status: 401,
+        success: false,
+        errors: {
+          message: '비밀번호가 일치하지 않습니다.',
+          field: 'password',
+        },
+      });
+    }
+
+    // JWT 페이로드에 유저 정보 포함
+    const payload = {
+      id: userDoc._id,
+      username,
+    };
+
+    // 로그인 성공 시 유저 정보로 토큰 생성
+    const token = jwt.sign(payload, secretKey, {
+      expiresIn: TOKEN_EXPIRE_TIME,
+    });
+
+    // Set-cookie 헤더로 jwt 토큰 설정
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // 프로덕션 환경에서만 HTTPS 설정
+        sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // https에서만 secure: true, 로컬 환경 http에서는 none 설정
+        maxAge: COOKIE_EXPIRE_TIME,
+      })
+      .json({
+        status: 200,
+        success: true,
+        message: '로그인 성공. 토큰이 발급되었습니다.',
+        data: {
+          id: userDoc._id,
+          username,
+          token: token,
+        },
+      });
+  } catch (e) {
+    res.status(500).json({
+      status: 500,
+      success: false,
+      errors: {
+        message: '서버 에러 발생',
+        error: e,
+      },
+    });
+  }
+};
