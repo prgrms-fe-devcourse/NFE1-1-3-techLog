@@ -1,3 +1,5 @@
+//upsateController.js 추가
+
 const Post = require('../models/post');
 const mongoose = require('mongoose');
 
