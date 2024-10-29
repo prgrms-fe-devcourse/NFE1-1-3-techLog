@@ -224,7 +224,7 @@ exports.loginUser = async (req, res) => {
       .cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // 프로덕션 환경에서만 HTTPS 설정
-        ameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // https에서만 secure: true, 로컬 환경 http에서는 none 설정
+        sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // https에서만 secure: true, 로컬 환경 http에서는 none 설정
         maxAge: COOKIE_EXPIRE_TIME,
       })
       .json({
