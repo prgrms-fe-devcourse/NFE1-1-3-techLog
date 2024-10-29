@@ -39,3 +39,4 @@ app.use('/user', userRoutes);   // /user로 시작하는 요청을 userRoutes로
 
 // 8. app 객체를 모듈로 내보냅니다
 module.exports = app;
+
