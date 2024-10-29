@@ -5,10 +5,6 @@ const path = require('path');
 const cors = require('cors');
 const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
-const readRoutes = require(path.join(__dirname, './routes/readRoutes'));
-const readAllRoutes = require(path.join(__dirname, './routes/readAllRoutes'));
-const deleteRoutes = require(path.join(__dirname, './routes/deleteRoutes'));
-const updateRoutes = require('./routes/updateRoutes');
 
 const app = express();
 
@@ -30,9 +26,5 @@ app.use(express.urlencoded({ extended: true }));
 // 라우트 설정
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
-app.use('/posts', readRoutes); 
-app.use('/posts', readAllRoutes);
-app.use('/posts', deleteRoutes); 
-app.use('/posts', updateRoutes);
 
 module.exports = app;
