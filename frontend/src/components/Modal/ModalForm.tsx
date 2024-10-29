@@ -69,6 +69,7 @@ function ModalForm({
       onChange: setInputQuestion,
       type: 'input',
       maxLength: 50,
+      placeholder: '질문을 입력해주세요.',
     },
     {
       label: '간단 답변',
@@ -76,6 +77,7 @@ function ModalForm({
       onChange: setInputShortAnswer,
       type: 'input',
       maxLength: 70,
+      placeholder: '간단한 답변을 입력해주세요.',
     },
     {
       label: '상세 답변',
@@ -83,6 +85,7 @@ function ModalForm({
       onChange: setInputDetailedAnswer,
       type: 'textarea',
       maxLength: 600,
+      placeholder: '상세한 답변을 입력해주세요.(선택)',
     },
   ];
 
@@ -98,12 +101,14 @@ function ModalForm({
               value={input.value}
               onChange={e => input.onChange(e.target.value)}
               maxLength={input.maxLength}
+              placeholder={input.placeholder}
             />
           ) : (
             <S.Textarea
               value={input.value}
               onChange={e => input.onChange(e.target.value)}
               maxLength={input.maxLength}
+              placeholder={input.placeholder}
             />
           )}
         </>
