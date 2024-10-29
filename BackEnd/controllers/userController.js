@@ -3,6 +3,7 @@ const User = require(path.join(__dirname, '../models/user'));
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { env } = require('process');
+const { json } = require('body-parser');
 
 const secretKey = process.env.SECRET_KEY;
 const TOKEN_EXPIRE_TIME = '24h'; // 토큰 만료 시간 (임시)
@@ -178,6 +179,17 @@ exports.loginUser = async (req, res) => {
     // db에 user 정보 찾기
     const userDoc = await User.findOne({ username });
 
+    // username, password 빈 값으로 요청이 오는 경우
+    if (!username || !password) {
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        errors: {
+          message: '아이디와 비밀번호를 입력해주세요.',
+        },
+      });
+    }
+
     // username이 잘못된 경우
     if (!userDoc) {
       return res.status(404).json({
@@ -198,7 +210,7 @@ exports.loginUser = async (req, res) => {
 
     // 비밀번호가 db에 있는 password와 일치하지 않는 경우
     if (!isPasswordCorrect) {
-      res.status(401).json({
+      return res.status(401).json({
         status: 401,
         success: false,
         errors: {
@@ -211,7 +223,7 @@ exports.loginUser = async (req, res) => {
     // JWT 페이로드에 유저 정보 포함
     const payload = {
       id: userDoc._id,
-      username,
+      username: userDoc.username,
     };
 
     // 로그인 성공 시 유저 정보로 토큰 생성
@@ -219,26 +231,28 @@ exports.loginUser = async (req, res) => {
       expiresIn: TOKEN_EXPIRE_TIME,
     });
 
+    // 쿠키 옵션 상수로 분리
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      maxAge: COOKIE_EXPIRE_TIME,
+      path: '/', // 쿠키 경로 명시
+    };
+
     // Set-cookie 헤더로 jwt 토큰 설정
-    res
-      .cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // 프로덕션 환경에서만 HTTPS 설정
-        sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // https에서만 secure: true, 로컬 환경 http에서는 none 설정
-        maxAge: COOKIE_EXPIRE_TIME,
-      })
-      .json({
-        status: 200,
-        success: true,
-        message: '로그인 성공. 토큰이 발급되었습니다.',
-        data: {
-          id: userDoc._id,
-          username,
-          token: token,
-        },
-      });
+    return res.cookie('token', token, cookieOptions).json({
+      status: 200,
+      success: true,
+      message: '로그인 성공',
+      data: {
+        id: userDoc._id,
+        username: userDoc.username,
+      },
+    });
   } catch (e) {
-    res.status(500).json({
+    console.log('로그인 에러: ', e);
+    return res.status(500).json({
       status: 500,
       success: false,
       errors: {
