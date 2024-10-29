@@ -4,31 +4,18 @@ import { Container, UnderlinedText } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton';
 import PATH from '../../constants/path';
+import useLogin from '../../hooks/useLogin';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { inputs } = useLogin();
   return (
     <Container>
-      <h1>
-        <img src="/logo.png" alt="logo" />
-      </h1>
+      <h1>Tech log</h1>
       <h2>개발자들을 위한 기술 면접 공유 플랫폼</h2>
-      <InputWithLabel
-        label="아이디"
-        placeholder="아이디를 입력하세요"
-        onChange={() => {
-          console.log('아이디');
-        }}
-        width="50rem"
-      />
-      <InputWithLabel
-        label="비밀번호"
-        placeholder="비밀번호를 입력하세요"
-        onChange={() => {
-          console.log('비번');
-        }}
-        width="50rem"
-      />
+      {inputs.map(input => (
+        <InputWithLabel {...input} />
+      ))}
       <p>
         아직 계정이 없으신가요?{' '}
         <UnderlinedText
