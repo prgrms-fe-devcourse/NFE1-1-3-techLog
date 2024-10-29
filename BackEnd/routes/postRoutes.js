@@ -2,17 +2,16 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const postController = require(
-  path.join(__dirname, '../controllers/postController'),
+  path.join(__dirname, '../controllers/posts/postController'),
 );
-const deleteController = require('../controllers/deleteController');
+const deleteController = require('../controllers/posts/deleteController');
 const readAllController = require(
-  path.join(__dirname, '../controllers/readAllController')
+  path.join(__dirname, '../controllers/posts/readAllController'),
 );
 const readController = require(
-  path.join(__dirname, '../controllers/readController')
+  path.join(__dirname, '../controllers/posts/readController'),
 );
-const updateController = require('../controllers/updateController');
-
+const updateController = require('../controllers/posts/updateController');
 
 const verifyToken = require('../middleware/auth');
 

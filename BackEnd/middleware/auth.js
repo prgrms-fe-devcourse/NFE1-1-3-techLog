@@ -23,21 +23,18 @@
 // module.exports = verifyToken;
 
 // middleware/auth.js
-
-// 추가
-
-// middleware/auth.js
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY;
 
 const verifyToken = (req, res, next) => {
   try {
-    // 헤더 또는 쿠키에서 토큰 확인
+    // 쿠키 또는 헤더에서 토큰 가져오기 (쿠키 우선)
     const token =
       req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
       return res.status(401).json({
+        status: 401,
         success: false,
         message: '인증 토큰이 필요합니다.',
       });
@@ -47,24 +44,29 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, secretKey);
 
     // 검증된 사용자 정보를 request 객체에 저장
-    req.user = decoded;
+    req.user = {
+      id: decoded.id,
+      username: decoded.username, // 필요한 경우 추가
+    };
     next();
   } catch (err) {
-    if (err.name === 'TokenExpiredError') {
-      return res.status(401).json({
-        success: false,
-        message: '토큰이 만료되었습니다.',
-      });
+    // 토큰 만료 또는 유효하지 않은 경우
+    const errorResponse = {
+      status: 401,
+      success: false,
+      message:
+        err.name === 'TokenExpiredError'
+          ? '토큰이 만료되었습니다.'
+          : '유효하지 않은 토큰입니다.',
+    };
+
+    // 개발 환경에서만 에러 메시지 표시
+    if (process.env.NODE_ENV !== 'production') {
+      errorResponse.error = err.message;
     }
 
-    res.status(401).json({
-      success: false,
-      message: '유효하지 않은 토큰입니다.',
-    });
+    res.status(401).json(errorResponse);
   }
 };
 
 module.exports = verifyToken;
-const { json } = require('body-parser');
-const { verify } = require('jsonwebtoken');
-const { cookies } = require('next/headers');
