@@ -11,7 +11,8 @@ interface DuplicateButtonProps {
 const Button = styled.button<{ width?: string; disabled?: boolean }>`
   width: ${({ width }) => width || '100%'};
   padding: 1rem 0;
-  background-color: ${({ disabled }) => (disabled ? '#CCCCCC' : '#000000')}; /* 비활성화 시 회색, 활성화 시 검은색 */
+  background-color: ${({ disabled }) =>
+    disabled ? '#CCCCCC' : '#000000'}; /* 비활성화 시 회색, 활성화 시 검은색 */
   color: ${({ disabled }) => (disabled ? '#666666' : '#FFFFFF')};
   font-size: 1.2rem;
   border: none;
@@ -32,7 +33,12 @@ const Button = styled.button<{ width?: string; disabled?: boolean }>`
   }
 `;
 
-function DuplicateButton({ title, width, onClick, disabled }: DuplicateButtonProps) {
+function DuplicateButton({
+  title,
+  width,
+  onClick,
+  disabled,
+}: DuplicateButtonProps) {
   return (
     <Button width={width} onClick={onClick} disabled={disabled}>
       {title}

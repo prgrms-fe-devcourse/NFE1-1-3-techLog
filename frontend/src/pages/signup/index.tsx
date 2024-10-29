@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, FlexContainer, InputIDWrapper, InputPassWordWrapper, ErrorMessage, DuplicateButtonWrapper } from './index.styles';
+import {
+  Container,
+  FlexContainer,
+  InputIDWrapper,
+  InputPassWordWrapper,
+  ErrorMessage,
+  DuplicateButtonWrapper,
+} from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton/index';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
@@ -9,6 +16,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({
     username: '',
@@ -20,14 +28,15 @@ export default function Signup() {
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
 
   // 아이디 유효성 검사 함수 (소문자 및 숫자만 허용, 6~18자)
-  const validateUsername = (username: string) => {
+  const validateUsername = (username_: string) => {
     const usernameRegex = /^[a-z0-9]{6,18}$/; // 소문자와 숫자만 허용, 6~18자
-    return usernameRegex.test(username);
+    return usernameRegex.test(username_);
   };
 
-  const validatePassword = (password: string) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,18}$/;
-    return passwordRegex.test(password);
+  const validatePassword = (password_: string) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,18}$/;
+    return passwordRegex.test(password_);
   };
 
   useEffect(() => {
@@ -44,7 +53,7 @@ export default function Signup() {
   }, [username]);
 
   const validate = () => {
-    let newErrors = { username: '', password: '', confirmPassword: '' };
+    const newErrors = { username: '', password: '', confirmPassword: '' };
     let isValid = true;
 
     if (!validateUsername(username)) {
@@ -53,7 +62,8 @@ export default function Signup() {
     }
 
     if (!validatePassword(password)) {
-      newErrors.password = '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.';
+      newErrors.password =
+        '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.';
       isValid = false;
     }
 
