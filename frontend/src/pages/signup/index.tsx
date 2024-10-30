@@ -26,9 +26,8 @@ export default function Signup() {
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
 
-  // 아이디 유효성 검사 함수 (소문자 및 숫자만 허용, 6~18자)
   const validateUsername = (inputUsername: string) => {
-    const usernameRegex = /^[a-z0-9]{6,18}$/; // 소문자와 숫자만 허용, 6~18자
+    const usernameRegex = /^[a-z0-9]{6,18}$/;
     return usernameRegex.test(inputUsername);
   };
 
@@ -39,17 +38,33 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    if (validateUsername(username)) {
-      setErrors(prevErrors => ({ ...prevErrors, username: '' }));
-      setIsUsernameValid(true);
-    } else {
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
-      }));
-      setIsUsernameValid(false);
+    if (username) {
+      if (validateUsername(username)) {
+        setErrors(prevErrors => ({ ...prevErrors, username: '' }));
+        setIsUsernameValid(true);
+      } else {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
+        }));
+        setIsUsernameValid(false);
+      }
     }
   }, [username]);
+
+  useEffect(() => {
+    if (password) {
+      if (validatePassword(password)) {
+        setErrors(prevErrors => ({ ...prevErrors, password: '' }));
+      } else {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          password:
+            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.',
+        }));
+      }
+    }
+  }, [password]);
 
   const validate = () => {
     const newErrors = { username: '', password: '', confirmPassword: '' };
