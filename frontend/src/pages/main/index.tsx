@@ -19,6 +19,7 @@ export default function Main() {
 
   const initialItems = [
     {
+      // question, answer이 추가로 생성되면 값 추가
       id: 1,
       question: 'What is React?',
       answer: 'A JavaScript library for building UIs',

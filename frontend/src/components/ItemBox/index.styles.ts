@@ -31,7 +31,7 @@ export const ItemBox = styled.div`
   margin: 10px;
   height: auto;
 
-  // div 높이
+  // itembox추가 시 높이 변경
   div {
     display: flex;
     justify-content: center;
