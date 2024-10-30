@@ -22,8 +22,8 @@ export const ItemBox = styled.div`
   display: grid;
 
   align-items: center;
-  grid-template-columns: 30% 30% 30%;
-  grid-template-rows: 30% 30% 30%;
+  grid-template-columns: 32% 32% 32%;
+  grid-template-rows: 32% 32% 32%;
   margin: 10px;
   grid-gap: 20px;
   /* border: 1px solid blue; */
