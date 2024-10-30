@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { authLogin } from '../api/auth';
 import useInput from './useInput';
-import PATH from '../constants/path';
+// import PATH from '../constants/path';
 
 export default function useLogin() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [password, onChangePassword] = useInput('');
   const [username, onChangeUsername] = useInput('');
 
@@ -27,7 +27,7 @@ export default function useLogin() {
     mutationFn: authLogin,
     onSuccess: data => {
       localStorage.setItem('username', data.data.username);
-      navigate(PATH.MAIN);
+      // navigate(PATH.MAIN);
     },
     onError: error => {
       if (error.message.includes('401'))
