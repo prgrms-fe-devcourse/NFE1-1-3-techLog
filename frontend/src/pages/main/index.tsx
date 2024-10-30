@@ -7,8 +7,14 @@ import useModal from '../../hooks/useModal';
 import useDialog from '../../hooks/useDialog';
 
 export default function Main() {
-  const { isDialogOpen, handleConfirm, handleCancel, Tabs, activeIndex } =
-    useDialog();
+  const {
+    isDialogOpen,
+    handleConfirm,
+    handleCancel,
+    Tabs,
+    activeIndex,
+    setIsDialogOpen,
+  } = useDialog();
   const {
     isRegisterModalOpen,
     handleRegisterSubmit,
@@ -21,6 +27,7 @@ export default function Main() {
     handleEdit,
     handleEditSubmit,
     closeEditModal,
+    openRegisterModal,
   } = useModal();
 
   return (
@@ -66,6 +73,17 @@ export default function Main() {
       )}
       <h1>{Tabs[activeIndex]}</h1>
       {/* 여기 아래에 3*3형태로 아이템 박스  */}
+      <S.PlusButton
+        onClick={() => {
+          if (localStorage.getItem('username')) {
+            openRegisterModal();
+          } else {
+            setIsDialogOpen(true);
+          }
+        }}
+      >
+        +
+      </S.PlusButton>
     </S.Container>
   );
 }
