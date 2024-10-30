@@ -11,7 +11,7 @@ export default function useModal() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isReadModalOpen, setIsReadModalOpen] = useState(false);
-  // const openRegisterModal = () => setIsRegisterModalOpen(true);
+  const openRegisterModal = () => setIsRegisterModalOpen(true);
   const closeRegisterModal = () => setIsRegisterModalOpen(false);
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
@@ -51,5 +51,6 @@ export default function useModal() {
     handleEdit,
     handleEditSubmit,
     closeEditModal,
+    openRegisterModal,
   };
 }
