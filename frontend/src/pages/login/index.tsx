@@ -8,13 +8,22 @@ import useLogin from '../../hooks/useLogin';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { inputs } = useLogin();
+  const { inputs, password, username, mutateLogin } = useLogin();
+
   return (
-    <Container>
+    <Container
+      onSubmit={e => {
+        e.preventDefault();
+        mutateLogin.mutate({ username, password });
+      }}
+    >
       <h1>Tech log</h1>
       <h2>개발자들을 위한 기술 면접 공유 플랫폼</h2>
       {inputs.map(input => (
-        <InputWithLabel {...input} />
+        <InputWithLabel
+          {...input}
+          type={input.label === '비밀번호' ? 'password' : 'text'}
+        />
       ))}
       <p>
         아직 계정이 없으신가요?{' '}
@@ -26,14 +35,7 @@ export default function Login() {
           회원가입하러 가기
         </UnderlinedText>
       </p>
-      <AuthButton
-        title="로그인"
-        onClick={() => {
-          console.log('확인');
-        }}
-        disabled
-        width="50rem"
-      />
+      <AuthButton title="로그인" type="submit" width="50rem" />
     </Container>
   );
 }

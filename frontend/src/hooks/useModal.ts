@@ -10,7 +10,7 @@ export default function useModal() {
 
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isReadModalOpen, setIsReadModalOpen] = useState(true);
+  const [isReadModalOpen, setIsReadModalOpen] = useState(false);
   // const openRegisterModal = () => setIsRegisterModalOpen(true);
   const closeRegisterModal = () => setIsRegisterModalOpen(false);
   const openEditModal = () => setIsEditModalOpen(true);
