@@ -4,8 +4,9 @@ import styled from 'styled-components';
 interface AuthButtonProps {
   title: string;
   width?: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button = styled.button<{ width?: string }>`
@@ -32,9 +33,15 @@ const Button = styled.button<{ width?: string }>`
   }
 `;
 
-function AuthButton({ title, width, onClick, disabled }: AuthButtonProps) {
+function AuthButton({
+  title,
+  width,
+  onClick,
+  disabled,
+  type = 'button',
+}: AuthButtonProps) {
   return (
-    <Button width={width} onClick={onClick} disabled={disabled}>
+    <Button width={width} onClick={onClick} disabled={disabled} type={type}>
       {title}
     </Button>
   );
