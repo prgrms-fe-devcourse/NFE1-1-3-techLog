@@ -33,7 +33,6 @@ mongoose
 app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true })); // CORS 설정 - 다른 도메인에서의 API 요청 허용
 app.use(express.json()); // JSON 형식의 요청 본문 파싱
 app.use(express.urlencoded({ extended: true })); // URL-encoded 형식의 요청 본문 파싱
-app.use(cookieParser());
 
 // 7. 라우트 설정
 app.use('/posts', postRoutes); // /posts로 시작하는 요청을 postRoutes로 처리
