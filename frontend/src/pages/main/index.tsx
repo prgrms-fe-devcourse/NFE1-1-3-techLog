@@ -13,6 +13,7 @@ export default function Main() {
   const handleCancel = () => {
     setIsDialogOpen(false);
   };
+
   return (
     <S.Container>
       {isDialogOpen && (
@@ -25,7 +26,20 @@ export default function Main() {
           cancelTitle="돌아가기"
         />
       )}
-      <h1>{Tabs[activeIndex]}</h1>
+      <S.MainPage>
+        <h1>{Tabs[activeIndex]}</h1>
+        <S.ItemBox>
+          <div>React에서 props란?</div>
+          <div>컴포넌트란 무엇인가?</div>
+          <div>React에서 props란?</div>
+          <div>컴포넌트란 무엇인가?</div>
+          <div>React에서 props란?</div>
+          <div>컴포넌트란 무엇인가?</div>
+          <div>React에서 props란?</div>
+          <div>컴포넌트란 무엇인가?</div>
+          <div>React에서 props란?</div>
+        </S.ItemBox>
+      </S.MainPage>
     </S.Container>
   );
 }
