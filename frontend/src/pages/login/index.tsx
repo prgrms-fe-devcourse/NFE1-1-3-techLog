@@ -8,7 +8,8 @@ import useLogin from '../../hooks/useLogin';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { inputs } = useLogin();
+  const { inputs, password, username, mutateLogin } = useLogin();
+
   return (
     <Container>
       <h1>Tech log</h1>
@@ -30,8 +31,8 @@ export default function Login() {
         title="로그인"
         onClick={() => {
           console.log('확인');
+          mutateLogin.mutate({ username, password });
         }}
-        disabled
         width="50rem"
       />
     </Container>
