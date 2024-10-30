@@ -2,16 +2,38 @@ import React, { useState } from 'react';
 import * as S from './index.styles';
 import useStore from '../../store';
 import Dialog from '../../components/Dialog';
+import ItemBox from '../../components/ItemBox';
 
 export default function Main() {
   const { activeIndex } = useStore();
   const Tabs = ['All', 'React', 'CS', 'Network'];
   const [isDialogOpen, setIsDialogOpen] = useState(true);
+
   const handleConfirm = () => {
     setIsDialogOpen(false);
   };
+
   const handleCancel = () => {
     setIsDialogOpen(false);
+  };
+
+  const initialItems = [
+    {
+      id: 1,
+      question: 'What is React?',
+      answer: 'A JavaScript library for building UIs',
+      showAnswer: false,
+    },
+  ];
+
+  const [itemList, setItemList] = useState(initialItems);
+
+  const toggleAnswer = (id: number) => {
+    setItemList(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, showAnswer: !item.showAnswer } : item,
+      ),
+    );
   };
 
   return (
@@ -28,18 +50,17 @@ export default function Main() {
       )}
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
-        <S.ItemBox>
-          <div>React에서 props란?</div>
-          <div>컴포넌트란 무엇인가?</div>
-          <div>React에서 props란?</div>
-          <div>컴포넌트란 무엇인가?</div>
-          <div>React에서 props란?</div>
-          <div>컴포넌트란 무엇인가?</div>
-          <div>React에서 props란?</div>
-          <div>컴포넌트란 무엇인가?</div>
-          <div>React에서 props란?</div>
-        </S.ItemBox>
-        <S.PlusBtn>+</S.PlusBtn>
+        <S.ItemBoxGrid>
+          {itemList.map(item => (
+            <ItemBox
+              key={item.id}
+              question={item.question}
+              answer={item.answer}
+              showAnswer={item.showAnswer}
+              onClick={() => toggleAnswer(item.id)} // 클릭 시 답변 토글
+            />
+          ))}
+        </S.ItemBoxGrid>
       </S.MainPage>
     </S.Container>
   );
