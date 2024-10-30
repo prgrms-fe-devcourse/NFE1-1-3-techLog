@@ -39,6 +39,7 @@ export default function Main() {
           <div>컴포넌트란 무엇인가?</div>
           <div>React에서 props란?</div>
         </S.ItemBox>
+        <S.PlusBtn>+</S.PlusBtn>
       </S.MainPage>
     </S.Container>
   );
