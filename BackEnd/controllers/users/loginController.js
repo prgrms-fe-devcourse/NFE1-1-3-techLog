@@ -60,7 +60,15 @@ exports.loginUser = async (req, res) => {
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: COOKIE_EXPIRE_TIME,
       path: '/',
+      domain: 'localhost', // 로컬 환경 도메인 설정
     };
+    // const cookieOptions = {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+    //   maxAge: COOKIE_EXPIRE_TIME,
+    //   path: '/',
+    // };
 
     // 응답 전송
     return res.cookie('token', token, cookieOptions).json({
