@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './index.styles';
 import PATH from '../../../constants/path';
@@ -6,13 +6,12 @@ import useStore from '../../../store';
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const [isLogin] = useState<boolean>(false);
   const { activeIndex, setActiveIndex } = useStore();
 
   const handleClick = (index: number) => {
     setActiveIndex(index);
     if (index === 4) {
-      if (isLogin) navigate(PATH.MYPAGE);
+      if (localStorage.getItem('username')) navigate(PATH.MYPAGE);
       else navigate(PATH.LOGIN);
     }
   };
@@ -34,7 +33,7 @@ export default function Sidebar() {
             isActive={activeIndex === 4}
             onClick={() => handleClick(4)}
           >
-            {isLogin ? 'MYPAGE' : 'LOGIN'}
+            {localStorage.getItem('username') ? 'MYPAGE' : 'LOGIN'}
           </S.ListItem>
         </S.ListContainer>
       </S.MenuBar>

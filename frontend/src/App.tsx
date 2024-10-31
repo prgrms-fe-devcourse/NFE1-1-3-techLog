@@ -7,7 +7,6 @@ import DefaultLayout from './components/Layout/DefaultLayout';
 import Login from './pages/login';
 import SignUp from './pages/signup';
 
-
 function App() {
   return (
     <Router>
@@ -15,7 +14,6 @@ function App() {
         <Route path={PATH.LOGIN} element={<DefaultLayout />}>
           <Route index element={<Login />} />
         </Route>
-
         <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
           <Route index element={<SignUp />} />
         </Route>

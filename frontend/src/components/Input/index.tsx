@@ -43,7 +43,12 @@ function InputWithLabel({
   return (
     <div>
       <Label>{label}</Label>
-      <Input placeholder={placeholder} type={type} onChange={onChange} width={width} />
+      <Input
+        placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+        width={width}
+      />
     </div>
   );
 }

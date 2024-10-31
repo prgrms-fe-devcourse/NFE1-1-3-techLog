@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import * as S from './index.styles';
-import useStore from '../../store';
 import Dialog from '../../components/Dialog';
+import ModalRead from '../../components/Modal/ModalRead';
+import ModalForm from '../../components/Modal/ModalForm';
+import useModal from '../../hooks/useModal';
+import useDialog from '../../hooks/useDialog';
 import ItemBox from '../../components/ItemBox';
 
 export default function Main() {
-  const { activeIndex } = useStore();
-  const Tabs = ['All', 'React', 'CS', 'Network'];
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
-
-  const handleConfirm = () => {
-    setIsDialogOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsDialogOpen(false);
-  };
+  const { isDialogOpen, handleConfirm, handleCancel, Tabs, activeIndex } =
+    useDialog();
+  const {
+    isRegisterModalOpen,
+    handleRegisterSubmit,
+    closeRegisterModal,
+    isReadModalOpen,
+    detailData,
+    isEditModalOpen,
+    closeReadModal,
+    handleDelete,
+    handleEdit,
+    handleEditSubmit,
+    closeEditModal,
+  } = useModal();
 
   const initialItems = [
     {
@@ -47,6 +54,35 @@ export default function Main() {
           confirmTitle="로그인"
           cancelButton={handleCancel}
           cancelTitle="돌아가기"
+        />
+      )}
+      {isRegisterModalOpen && (
+        <ModalForm
+          initialCategory="React"
+          onSubmit={handleRegisterSubmit}
+          onClose={closeRegisterModal}
+        />
+      )}
+      {isReadModalOpen && (
+        <ModalRead
+          type="read"
+          initialCategory={detailData.category}
+          question={detailData.question}
+          shortAnswer={detailData.shortAnswer}
+          detailedAnswer={detailData.detailedAnswer}
+          onClose={closeReadModal}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+        />
+      )}
+      {isEditModalOpen && (
+        <ModalForm
+          onSubmit={handleEditSubmit}
+          onClose={closeEditModal}
+          initialCategory={detailData.category}
+          initialQuestion={detailData.question}
+          initialShortAnswer={detailData.shortAnswer}
+          initialDetailedAnswer={detailData.detailedAnswer}
         />
       )}
       <S.MainPage>
