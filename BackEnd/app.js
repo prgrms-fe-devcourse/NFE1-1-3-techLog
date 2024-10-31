@@ -19,6 +19,17 @@ const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 // 4. Express 애플리케이션 인스턴스를 생성합니다
 const app = express();
 
+app.use(cors({
+  origin: true,  // 모든 origin을 허용하면서 credentials도 사용 가능
+  // 또는
+  origin: function(origin, callback) {
+    callback(null, true); // 모든 origin 허용
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // 5. MongoDB 연결 설정
 mongoose
   .connect(process.env.MONGODB_URI) // .env 파일에 정의된 MongoDB URI로 연결
