@@ -1,25 +1,19 @@
 import React from 'react';
 import * as S from './index.styles';
+import { QaDataWithOnClick } from '../../interface/qaData';
 
-interface ItemBoxProps {
-  question: string;
-  answer: string;
-  showAnswer: boolean;
-  onClick: () => void;
-}
-
-// 일반 함수 선언으로 컴포넌트를 정의
-const ItemBox: React.FC<ItemBoxProps> = function ({
-  question,
-  answer,
+function ItemBox({
+  shortAnswer,
+  title,
   showAnswer,
   onClick,
-}) {
+  isEven,
+}: Partial<QaDataWithOnClick>) {
   return (
-    <S.ItemBox onClick={onClick}>
-      <div>{showAnswer ? answer : question}</div>
+    <S.ItemBox onClick={onClick} isEven={isEven}>
+      <div>{showAnswer ? shortAnswer : title}</div>
     </S.ItemBox>
   );
-};
+}
 
 export default ItemBox;
