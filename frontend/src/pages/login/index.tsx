@@ -14,7 +14,9 @@ export default function Login() {
     <Container
       onSubmit={e => {
         e.preventDefault();
-        mutateLogin.mutate({ username, password });
+        if (username && password) {
+          mutateLogin.mutate({ username, password });
+        }
       }}
     >
       <h1>Tech log</h1>

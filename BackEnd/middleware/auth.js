@@ -28,17 +28,10 @@ const secretKey = process.env.SECRET_KEY;
 
 const verifyToken = (req, res, next) => {
   try {
-    //쿠키 잘 전달 되었는지 확인용 auth 미들웨어 로그 추가
-    console.log('Cookies:', req.cookies);
-    console.log('Authorization Header:', req.header('Authorization'));
-
     // 쿠키 또는 헤더에서 토큰 가져오기 (쿠키 우선)
     const token =
       req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
 
-    console.log('Extracted Token:', token);
-
-      
     if (!token) {
       return res.status(401).json({
         status: 401,

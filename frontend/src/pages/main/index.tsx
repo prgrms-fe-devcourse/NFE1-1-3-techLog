@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import * as S from './index.styles';
 import Dialog from '../../components/Dialog';
 import ModalRead from '../../components/Modal/ModalRead';
@@ -6,10 +7,19 @@ import ModalForm from '../../components/Modal/ModalForm';
 import useModal from '../../hooks/useModal';
 import useDialog from '../../hooks/useDialog';
 import ItemBox from '../../components/ItemBox';
+import { loadAllQA } from '../../api/questionAnswer';
+import QUERYKEYS from '../../constants/querykeys';
+import { QaData } from '../../interface/qaData';
 
 export default function Main() {
-  const { isDialogOpen, handleConfirm, handleCancel, Tabs, activeIndex } =
-    useDialog();
+  const {
+    isDialogOpen,
+    handleConfirm,
+    handleCancel,
+    Tabs,
+    activeIndex,
+    setIsDialogOpen,
+  } = useDialog();
   const {
     isRegisterModalOpen,
     handleRegisterSubmit,
@@ -22,28 +32,24 @@ export default function Main() {
     handleEdit,
     handleEditSubmit,
     closeEditModal,
+    openRegisterModal,
   } = useModal();
 
-  const initialItems = [
-    {
-      // question, answer이 추가로 생성되면 값 추가
-      id: 1,
-      question: 'What is React?',
-      answer: 'A JavaScript library for building UIs',
-      showAnswer: false,
-    },
-  ];
+  const [showAnswerState, setShowAnswerState] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const [itemList, setItemList] = useState(initialItems);
-
-  const toggleAnswer = (id: number) => {
-    setItemList(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, showAnswer: !item.showAnswer } : item,
-      ),
-    );
+  const toggleAnswer = (id: string) => {
+    setShowAnswerState(prevState => ({
+      ...prevState,
+      [id]: !prevState[id], // 클릭된 item의 showAnswer 상태를 반전
+    }));
   };
-
+  const { data } = useQuery({
+    queryKey: [QUERYKEYS.LOAD_ALL_QA],
+    queryFn: loadAllQA,
+  });
+  console.log('data', data);
   return (
     <S.Container>
       {isDialogOpen && (
@@ -85,16 +91,29 @@ export default function Main() {
           initialDetailedAnswer={detailData.detailedAnswer}
         />
       )}
+      {/* 여기 아래에 3*3형태로 아이템 박스  */}
+      <S.PlusButton
+        onClick={() => {
+          if (localStorage.getItem('username')) {
+            openRegisterModal();
+          } else {
+            setIsDialogOpen(true);
+          }
+        }}
+      >
+        +
+      </S.PlusButton>
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
         <S.ItemBoxGrid>
-          {itemList.map(item => (
+          {data?.data.map((item: QaData, index: number) => (
             <ItemBox
-              key={item.id}
-              question={item.question}
-              answer={item.answer}
-              showAnswer={item.showAnswer}
-              onClick={() => toggleAnswer(item.id)} // 클릭 시 답변 토글
+              key={item._id}
+              title={item.title}
+              shortAnswer={item.shortAnswer}
+              showAnswer={showAnswerState[item._id] || false}
+              onClick={() => toggleAnswer(item._id)}
+              isEven={index % 2 === 0}
             />
           ))}
         </S.ItemBoxGrid>
