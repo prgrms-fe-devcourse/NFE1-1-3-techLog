@@ -53,10 +53,11 @@ function ModalForm({
     initialShortAnswer,
     initialDetailedAnswer,
   ]);
+
   const mutateRegisterQA = useMutation({
     mutationFn: registerQA,
     onSuccess: data => {
-      console.log('성공', data);
+      console.log('성공 후 데이터', data);
     },
     onError: error => {
       console.log('실패', error);
@@ -78,8 +79,8 @@ function ModalForm({
       shortAnswer,
       detailedAnswer,
     });
-    console.log(onsubmit);
   };
+
   const inputList = [
     {
       label: '질문',
@@ -106,10 +107,14 @@ function ModalForm({
       placeholder: '상세한 답변을 입력해주세요.(선택)',
     },
   ];
+  console.log('질문', question);
+  console.log('짧답', shortAnswer);
+  console.log('긴답', detailedAnswer);
 
   return (
     <Modal onClose={onClose}>
       <CategorySelect value={selectedCategory} onChange={setSelectedCategory} />
+
       {inputList.map(input => (
         <React.Fragment key={input.label}>
           <S.Label>{input.label}</S.Label>
