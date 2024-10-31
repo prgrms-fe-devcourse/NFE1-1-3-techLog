@@ -2,7 +2,6 @@ import API from './config';
 import apiClient from '.';
 import { ModalQaData } from '../interface/modalData';
 
-export const loadQA = async () => {};
 export const deleteQA = async () => {};
 export const registerQA = async (detailData: ModalQaData) => {
   const { data } = await apiClient.post(API.REGISTER, detailData);
@@ -13,6 +12,10 @@ export const editQA = async (detailData: ModalQaData) => {
   return data;
 };
 export const loadAllQA = async () => {
-  const { data } = await apiClient.get(API.READ_ALL);
+  const { data } = await apiClient.get(API.READ_QA_LIST);
+  return data;
+};
+export const loadQA = async (id: string) => {
+  const { data } = await apiClient.get(`${API.READ_QA}/${id}`);
   return data;
 };
