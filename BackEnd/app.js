@@ -16,29 +16,37 @@ const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 // 사용자 관련 라우터
 
-// 4. Express 애플리케이션 인스턴스를 생성합니다
+
 const app = express();
 
-// 5. MongoDB 연결 설정
+// CORS 설정을 하나로 통합하고 다른 미들웨어보다 먼저 적용
+app.use(cors({
+  origin: 'http://localhost:3000', // 프론트엔드 도메인
+  // 또는 여러 도메인 허용시
+  // origin: ['http://localhost:3000', 'https://your-production-domain.com'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// MongoDB 연결 설정
 mongoose
-  .connect(process.env.MONGODB_URI) // .env 파일에 정의된 MongoDB URI로 연결
+  .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('MongoDB connected'); // 연결 성공 시 로그 출력
+    console.log('MongoDB connected');
   })
   .catch(err => {
-    console.error('MongoDB connection error:', err); // 연결 실패 시 에러 로그 출력
+    console.error('MongoDB connection error:', err);
   });
 
-// 6. 미들웨어 설정
-app.use(cors({ origin: true, credentials: true })); // CORS 설정 - 다른 도메인에서의 API 요청 허용
-app.use(express.json()); // JSON 형식의 요청 본문 파싱
-app.use(express.urlencoded({ extended: true })); // URL-encoded 형식의 요청 본문 파싱
+// 다른 미들웨어 설정
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.options('*', cors());
 
-// 7. 라우트 설정
-app.use('/posts', postRoutes); // /posts로 시작하는 요청을 postRoutes로 처리
-app.use('/user', userRoutes); // /user로 시작하는 요청을 userRoutes로 처리
+// 라우트 설정
+app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
-// 8. app 객체를 모듈로 내보냅니다
+
 module.exports = app;
