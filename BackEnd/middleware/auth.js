@@ -36,6 +36,7 @@ const verifyToken = (req, res, next) => {
       return res.status(401).json({
         status: 401,
         success: false,
+        errorCode: 'NEED_TOKEN',
         message: '인증 토큰이 필요합니다.',
       });
     }
@@ -54,6 +55,8 @@ const verifyToken = (req, res, next) => {
     const errorResponse = {
       status: 401,
       success: false,
+      errorCode:
+        err.name === 'TokenExpiredError' ? 'TOKEN_EXPIRED' : 'INVALID_TOKEN',
       message:
         err.name === 'TokenExpiredError'
           ? '토큰이 만료되었습니다.'
