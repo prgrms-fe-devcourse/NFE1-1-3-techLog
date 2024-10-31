@@ -11,7 +11,20 @@ function ItemBox({
 }: Partial<QaDataWithOnClick>) {
   return (
     <S.ItemBox onClick={onClick} isEven={isEven}>
-      <div>{showAnswer ? shortAnswer : title}</div>
+      <S.Title>{showAnswer ? shortAnswer : title}</S.Title>
+      <S.Box style={{ color: isEven ? 'white' : 'black' }}>
+        {showAnswer ? (
+          <button
+            type="button"
+            onClick={onClick}
+            style={{ cursor: 'pointer', color: isEven ? 'white' : 'black' }}
+          >
+            상세 답변 보러가기 →
+          </button>
+        ) : (
+          <p>답변 보기 →</p>
+        )}
+      </S.Box>
     </S.ItemBox>
   );
 }
