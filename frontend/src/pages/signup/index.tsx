@@ -6,6 +6,7 @@ import {
   InputIDWrapper,
   InputPassWordWrapper,
   ErrorMessage,
+  SuccessMessage,
   DuplicateButtonWrapper,
 } from './index.styles';
 import InputWithLabel from '../../components/Input';
@@ -16,19 +17,19 @@ export default function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({
     username: '',
     password: '',
     confirmPassword: '',
   });
+  const [successMessage, setSuccessMessage] = useState(''); // 성공 메시지 상태 추가
   const [isUsernameDuplicate, setIsUsernameDuplicate] = useState(false);
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
 
   const validateUsername = (inputUsername: string) => {
-    const usernameRegex = /^[a-z0-9]{6,18}$/;
+    const usernameRegex = /^(?=.{6,18}$)[a-z0-9]*[a-z][a-z0-9]*$/;
     return usernameRegex.test(inputUsername);
   };
 
@@ -43,13 +44,20 @@ export default function Signup() {
       if (validateUsername(username)) {
         setErrors(prevErrors => ({ ...prevErrors, username: '' }));
         setIsUsernameValid(true);
+        setSuccessMessage(''); // 유효성 검사 시 성공 메시지 초기화
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
           username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
         }));
         setIsUsernameValid(false);
+        setIsDuplicateCheckClicked(false); // 중복확인 상태 초기화
+        setSuccessMessage(''); // 유효하지 않으면 성공 메시지 초기화
       }
+    } else {
+      setIsUsernameValid(false); // 아이디가 비어있는 경우 유효성 초기화
+      setIsDuplicateCheckClicked(false); // 아이디가 유효하지 않은 경우 중복확인 비활성화
+      setSuccessMessage(''); // 아이디가 비어있을 때 성공 메시지 초기화
     }
   }, [username]);
 
@@ -98,9 +106,11 @@ export default function Signup() {
         ...prevErrors,
         username: '존재하고 있는 아이디입니다.',
       }));
+      setSuccessMessage(''); // 중복일 때 성공 메시지 초기화
     } else {
       setIsUsernameDuplicate(false);
       setErrors(prevErrors => ({ ...prevErrors, username: '' }));
+      setSuccessMessage('사용가능한 아이디입니다.'); // 중복이 아닐 때 성공 메시지 설정
     }
     setIsDuplicateCheckClicked(true);
   };
@@ -128,6 +138,7 @@ export default function Signup() {
             width="38rem"
           />
           {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
+          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
         </InputIDWrapper>
         <DuplicateButtonWrapper>
           <DuplicateButton
