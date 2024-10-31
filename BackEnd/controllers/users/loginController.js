@@ -54,13 +54,21 @@ exports.loginUser = async (req, res) => {
     });
 
     // 쿠키 옵션 설정
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-      maxAge: COOKIE_EXPIRE_TIME,
-      path: '/',
-    };
+    // loginController.js의 cookieOptions 부분 수정
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,  // localhost에서도 true로 설정
+    sameSite: 'none',  // cross-origin 요청 허용을 위해 'none'으로 설정
+    maxAge: COOKIE_EXPIRE_TIME,
+    path: '/',
+  };
+    // const cookieOptions = {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+    //   maxAge: COOKIE_EXPIRE_TIME,
+    //   path: '/',
+    // };
 
     // 응답 전송
     return res.cookie('token', token, cookieOptions).json({
