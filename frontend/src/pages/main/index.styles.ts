@@ -7,6 +7,7 @@ export const Container = styled.div`
   padding: 6.7rem;
   display: flex;
   position: relative;
+
   h1 {
     font-size: 4.5rem;
     font-weight: 600;
@@ -29,4 +30,16 @@ export const PlusButton = styled.button`
   font-weight: normal;
   color: black;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+`;
+
+export const MainPage = styled.div`
+  width: 100%;
+`;
+
+export const ItemBoxGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 3fr); // 3열 그리드
+  grid-gap: 20px;
+  width: 100%;
+  height: 95%;
 `;

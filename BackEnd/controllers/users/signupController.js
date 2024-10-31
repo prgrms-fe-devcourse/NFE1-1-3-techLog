@@ -22,6 +22,7 @@ exports.signupUser = async (req, res) => {
       return res.status(409).json({
         status: 409,
         success: false,
+        errorCode: 'ALREADY_REGISTERED_USERNAME',
         errors: {
           message: '이미 등록된 회원입니다.',
           field: 'username',
@@ -40,6 +41,7 @@ exports.signupUser = async (req, res) => {
     res.status(201).json({
       status: 201,
       success: true,
+      successCode: 'SIGNUP_SUCCESS',
       message: '회원가입이 성공적으로 완료되었습니다.',
       data: {
         user: userDoc,
@@ -49,6 +51,7 @@ exports.signupUser = async (req, res) => {
     res.status(500).json({
       status: 500,
       success: false,
+      errorCode: 'SERVER_ERROR',
       errors: {
         message: '서버 에러 발생',
         error: e,
