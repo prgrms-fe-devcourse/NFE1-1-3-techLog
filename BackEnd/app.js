@@ -20,8 +20,6 @@ const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 const app = express();
 
 app.use(cors({
-  origin: true,  // 모든 origin을 허용하면서 credentials도 사용 가능
-  // 또는
   origin: function(origin, callback) {
     callback(null, true); // 모든 origin 허용
   },
