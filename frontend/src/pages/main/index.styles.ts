@@ -39,6 +39,7 @@ export const MainPage = styled.div`
 export const ItemBoxGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 3fr); // 3열 그리드
-  grid-gap: 3rem;
+  grid-gap: 4rem;
   width: 96rem;
+  padding-top: 2rem;
 `;
