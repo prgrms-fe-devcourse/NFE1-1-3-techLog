@@ -111,9 +111,9 @@ export default function Main() {
               key={item._id}
               title={item.title}
               shortAnswer={item.shortAnswer}
-              showAnswer={showAnswerState[item._id] || false} // 상태에 따라 표시
-              onClick={() => toggleAnswer(item._id)} // 클릭 시 답변 토글
-              isEven={index % 2 === 0} // 인덱스를 기준으로 짝수/홀수 결정
+              showAnswer={showAnswerState[item._id] || false}
+              onClick={() => toggleAnswer(item._id)}
+              isEven={index % 2 === 0}
             />
           ))}
         </S.ItemBoxGrid>
