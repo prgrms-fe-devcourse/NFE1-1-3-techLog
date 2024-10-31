@@ -19,40 +19,22 @@ export const MainPage = styled.div`
   width: 100%;
 `;
 
-export const ItemBoxGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); // 3열 그리드로 수정
-  grid-gap: 20px;
-  width: 100%;
+export const ItemBox = styled.div<{ isEven?: boolean }>`
   height: auto;
-`;
+  background-color: ${({ isEven }) => (isEven ? 'black' : 'white')};
+  color: ${({ isEven }) => (isEven ? 'white' : 'black')};
+  border: 1px solid black;
+  border-radius: 7px;
 
-export const ItemBox = styled.div`
-  margin: 10px;
-  height: auto;
-
-  // itembox추가 시 높이 변경
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 33%;
     font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer;
-  }
-
-  div:nth-child(even) {
-    border: 1px solid black;
-    border-radius: 7px;
-    background-color: white;
-    color: black;
-  }
-
-  div:nth-child(odd) {
-    border-radius: 7px;
-    background-color: black;
-    color: white;
+    height: 23rem;
+    width: 30rem;
   }
 `;
 
