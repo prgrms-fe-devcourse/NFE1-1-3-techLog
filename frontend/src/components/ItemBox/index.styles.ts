@@ -39,6 +39,7 @@ export const ItemBox = styled.div`
     height: 33%;
     font-size: 1.5rem;
     font-weight: 500;
+    cursor: pointer;
   }
 
   div:nth-child(even) {
