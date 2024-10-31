@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './index.styles';
 import Dialog from '../../components/Dialog';
 import ModalRead from '../../components/Modal/ModalRead';
 import ModalForm from '../../components/Modal/ModalForm';
 import useModal from '../../hooks/useModal';
 import useDialog from '../../hooks/useDialog';
+import ItemBox from '../../components/ItemBox';
 
 export default function Main() {
   const { isDialogOpen, handleConfirm, handleCancel, Tabs, activeIndex } =
@@ -22,6 +23,26 @@ export default function Main() {
     handleEditSubmit,
     closeEditModal,
   } = useModal();
+
+  const initialItems = [
+    {
+      // question, answer이 추가로 생성되면 값 추가
+      id: 1,
+      question: 'What is React?',
+      answer: 'A JavaScript library for building UIs',
+      showAnswer: false,
+    },
+  ];
+
+  const [itemList, setItemList] = useState(initialItems);
+
+  const toggleAnswer = (id: number) => {
+    setItemList(prevItems =>
+      prevItems.map(item =>
+        item.id === id ? { ...item, showAnswer: !item.showAnswer } : item,
+      ),
+    );
+  };
 
   return (
     <S.Container>
@@ -64,8 +85,20 @@ export default function Main() {
           initialDetailedAnswer={detailData.detailedAnswer}
         />
       )}
-      <h1>{Tabs[activeIndex]}</h1>
-      {/* 여기 아래에 3*3형태로 아이템 박스  */}
+      <S.MainPage>
+        <h1>{Tabs[activeIndex]}</h1>
+        <S.ItemBoxGrid>
+          {itemList.map(item => (
+            <ItemBox
+              key={item.id}
+              question={item.question}
+              answer={item.answer}
+              showAnswer={item.showAnswer}
+              onClick={() => toggleAnswer(item.id)} // 클릭 시 답변 토글
+            />
+          ))}
+        </S.ItemBoxGrid>
+      </S.MainPage>
     </S.Container>
   );
 }
