@@ -2,8 +2,8 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 const secretKey = process.env.SECRET_KEY;
-const TOKEN_EXPIRE_TIME = '3m';
-const COOKIE_EXPIRE_TIME = 3 * 60 * 1000;
+const TOKEN_EXPIRE_TIME = '10m';
+const COOKIE_EXPIRE_TIME = 10 * 60 * 1000;
 
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
@@ -55,13 +55,13 @@ exports.loginUser = async (req, res) => {
 
     // 쿠키 옵션 설정
     // loginController.js의 cookieOptions 부분 수정
-  const cookieOptions = {
-    httpOnly: true,
-    secure: true,  // localhost에서도 true로 설정
-    sameSite: 'none',  // cross-origin 요청 허용을 위해 'none'으로 설정
-    maxAge: COOKIE_EXPIRE_TIME,
-    path: '/',
-  };
+    const cookieOptions = {
+      httpOnly: true,
+      secure: true, // localhost에서도 true로 설정
+      sameSite: 'none', // cross-origin 요청 허용을 위해 'none'으로 설정
+      maxAge: COOKIE_EXPIRE_TIME,
+      path: '/',
+    };
     // const cookieOptions = {
     //   httpOnly: true,
     //   secure: process.env.NODE_ENV === 'production',
