@@ -1,5 +1,5 @@
 const { loginUser } = require('./loginController');
 const { idCheckUser } = require('./idCheckController');
 const { signupUser } = require('./signupController');
-
-module.exports = { loginUser, idCheckUser, signupUser };
+const { logoutUser } = require('./logoutController');
+module.exports = { loginUser, idCheckUser, signupUser, logoutUser };

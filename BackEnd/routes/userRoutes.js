@@ -14,4 +14,7 @@ router.post('/idCheck', userController.idCheckUser);
 // user login
 router.post('/login', userController.loginUser);
 
+// user logout
+router.post('/logout', userController.logoutUser);
+
 module.exports = router;
