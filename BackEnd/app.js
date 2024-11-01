@@ -16,14 +16,13 @@ const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 // 사용자 관련 라우터
 
-
 const app = express();
 
 // CORS 설정을 하나로 통합하고 다른 미들웨어보다 먼저 적용
 app.use(cors({
   // origin: 'http://localhost:3000', // 프론트엔드 도메인
   // 또는 여러 도메인 허용시
-  origin: ['http://localhost:3000', 'https://nfe-1-1-3-tech-log.vercel.app/'],
+  origin: ['http://localhost:3000', 'https://nfe-1-1-3-tech-log.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
