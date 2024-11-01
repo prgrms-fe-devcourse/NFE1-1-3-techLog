@@ -15,7 +15,7 @@ export const loadAllQA = async () => {
   const { data } = await apiClient.get(API.READ_QA_LIST);
   return data;
 };
-export const loadQA = async (id: string) => {
+export const loadQA = async (id: string | null) => {
   const { data } = await apiClient.get(`${API.READ_QA}/${id}`);
   return data;
 };
