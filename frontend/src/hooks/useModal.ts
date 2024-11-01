@@ -1,23 +1,19 @@
 import { useState } from 'react';
+import useModalStore from '../store/modalStore';
 
 export default function useModal() {
-  const detailData = {
-    category: 'React' as 'React',
-    question: 'Mount, Update, Unmount 가 무엇인가?',
-    shortAnswer: '컴포넌트의 생명주기 관련 주요 단계들입니다.',
-    detailedAnswer: '컴포넌트의 생명주기 관련 주요 단계들입니다...  ',
-  }; // 예시 데이터
-
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isReadModalOpen, setIsReadModalOpen] = useState(false);
   const openRegisterModal = () => setIsRegisterModalOpen(true);
   const closeRegisterModal = () => setIsRegisterModalOpen(false);
-  const openEditModal = () => setIsEditModalOpen(true);
-  const closeEditModal = () => setIsEditModalOpen(false);
 
-  // const openReadModal = () => setIsReadModalOpen(true);
-  const closeReadModal = () => setIsReadModalOpen(false);
+  const {
+    isReadModalOpen,
+    openReadModal,
+    closeReadModal,
+    isEditModalOpen,
+    openEditModal,
+    closeEditModal,
+  } = useModalStore();
 
   const handleRegisterSubmit = (data: any) => {
     console.log('등록된 데이터:', data);
@@ -35,7 +31,6 @@ export default function useModal() {
   };
 
   const handleEdit = () => {
-    closeReadModal();
     openEditModal();
   };
 
@@ -43,14 +38,15 @@ export default function useModal() {
     isRegisterModalOpen,
     handleRegisterSubmit,
     closeRegisterModal,
+    openRegisterModal,
     isReadModalOpen,
-    detailData,
-    isEditModalOpen,
+    openReadModal,
     closeReadModal,
+    isEditModalOpen,
+    openEditModal,
+    closeEditModal,
     handleDelete,
     handleEdit,
     handleEditSubmit,
-    closeEditModal,
-    openRegisterModal,
   };
 }

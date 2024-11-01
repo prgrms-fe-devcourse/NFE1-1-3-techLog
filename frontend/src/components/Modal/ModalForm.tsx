@@ -1,43 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import Modal from '.';
 import * as S from './index.styles';
 import CategorySelect from './CategorySelect';
 import { ModalProps } from '../../interface/modalProps';
-import { Category } from '../../interface/category';
 import useInput from '../../hooks/useInput';
-import { registerQA } from '../../api/questionAnswer';
+import { loadQA, registerQA } from '../../api/questionAnswer';
+import useModalStore from '../../store/modalStore';
+import QUERYKEYS from '../../constants/querykeys';
 
-interface ModalFormProps extends ModalProps {
-  initialCategory: Category;
-  initialQuestion?: string;
-  initialShortAnswer?: string;
-  initialDetailedAnswer?: string;
-}
+function ModalForm({ onSubmit, onClose }: ModalProps) {
+  const { modalId } = useModalStore();
 
-function ModalForm({
-  onSubmit,
-  onClose,
-  initialCategory = 'React',
-  initialQuestion = '',
-  initialShortAnswer = '',
-  initialDetailedAnswer = '',
-}: ModalFormProps) {
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [question, onChangeQuestion] = useInput(initialQuestion);
-  const [shortAnswer, onChangeShortAnswer] = useInput(initialShortAnswer);
+  if (!modalId) return null;
+  const { data } = useQuery({
+    queryKey: [QUERYKEYS.LOAL_QA, modalId],
+    queryFn: () => loadQA(modalId),
+  });
+  console.log('edit', data);
+  const [selectedCategory, setSelectedCategory] = useState(data?.data.category);
+  const [question, onChangeQuestion] = useInput(data?.data.title);
+  const [shortAnswer, onChangeShortAnswer] = useInput(data?.data.shortAnswer);
   const [detailedAnswer, onChangeDetailedAnswer] = useInput(
-    initialDetailedAnswer,
+    data?.data.detailedAnswer,
   );
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
     // 입력 값이 초기값과 다른지 여부 확인
     const hasChanges =
-      selectedCategory !== initialCategory ||
-      question !== initialQuestion ||
-      shortAnswer !== initialShortAnswer ||
-      detailedAnswer !== initialDetailedAnswer;
+      selectedCategory !== data?.data.category ||
+      question !== data?.data.title ||
+      shortAnswer !== data?.data.shortAnswer ||
+      detailedAnswer !== data?.data.detailedAnswer;
 
     // 필수 입력 필드가 채워지고 변경 사항이 있는 경우에만 활성화
     setIsSubmitDisabled(
@@ -48,16 +43,16 @@ function ModalForm({
     question,
     shortAnswer,
     detailedAnswer,
-    initialCategory,
-    initialQuestion,
-    initialShortAnswer,
-    initialDetailedAnswer,
+    data?.data.category,
+    data?.data.title,
+    data?.data.shortAnswer,
+    data?.data.detailedAnswer,
   ]);
 
   const mutateRegisterQA = useMutation({
     mutationFn: registerQA,
-    onSuccess: data => {
-      console.log('성공 후 데이터', data);
+    onSuccess: res => {
+      console.log('성공 후 데이터', res);
     },
     onError: error => {
       console.log('실패', error);
@@ -138,7 +133,7 @@ function ModalForm({
 
       <S.ButtonGroup>
         <S.SubmitButton onClick={handleSubmit} disabled={isSubmitDisabled}>
-          {initialQuestion ? '수정하기' : '등록하기'}
+          {data?.data.category ? '수정하기' : '등록하기'}
         </S.SubmitButton>
       </S.ButtonGroup>
     </Modal>
