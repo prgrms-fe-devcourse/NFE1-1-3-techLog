@@ -1,7 +1,7 @@
 import { Category } from './category';
 
 export interface QaData {
-  _id: string;
+  _id: string | null;
   title: string;
   category: Category;
   shortAnswer: string;

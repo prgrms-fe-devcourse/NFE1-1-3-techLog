@@ -22,15 +22,11 @@ export default function Main() {
   } = useDialog();
   const {
     isRegisterModalOpen,
-    handleRegisterSubmit,
     closeRegisterModal,
     isReadModalOpen,
-    detailData,
     isEditModalOpen,
     closeReadModal,
-    handleDelete,
     handleEdit,
-    handleEditSubmit,
     closeEditModal,
     openRegisterModal,
   } = useModal();
@@ -39,17 +35,19 @@ export default function Main() {
     [key: string]: boolean;
   }>({});
 
-  const toggleAnswer = (id: string) => {
-    setShowAnswerState(prevState => ({
-      ...prevState,
-      [id]: !prevState[id], // 클릭된 item의 showAnswer 상태를 반전
-    }));
+  const toggleAnswer = (id: string | null) => {
+    if (id !== null) {
+      setShowAnswerState(prevState => ({
+        ...prevState,
+        [id]: !prevState[id], // 클릭된 item의 showAnswer 상태를 반전
+      }));
+    }
   };
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_ALL_QA],
     queryFn: loadAllQA,
   });
-  console.log('data', data);
+
   return (
     <S.Container>
       {isDialogOpen && (
@@ -62,36 +60,11 @@ export default function Main() {
           cancelTitle="돌아가기"
         />
       )}
-      {isRegisterModalOpen && (
-        <ModalForm
-          initialCategory="React"
-          onSubmit={handleRegisterSubmit}
-          onClose={closeRegisterModal}
-        />
-      )}
+      {isRegisterModalOpen && <ModalForm onClose={closeRegisterModal} />}
       {isReadModalOpen && (
-        <ModalRead
-          type="read"
-          initialCategory={detailData.category}
-          question={detailData.question}
-          shortAnswer={detailData.shortAnswer}
-          detailedAnswer={detailData.detailedAnswer}
-          onClose={closeReadModal}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-        />
+        <ModalRead type="read" onEdit={handleEdit} onClose={closeReadModal} />
       )}
-      {isEditModalOpen && (
-        <ModalForm
-          onSubmit={handleEditSubmit}
-          onClose={closeEditModal}
-          initialCategory={detailData.category}
-          initialQuestion={detailData.question}
-          initialShortAnswer={detailData.shortAnswer}
-          initialDetailedAnswer={detailData.detailedAnswer}
-        />
-      )}
-      {/* 여기 아래에 3*3형태로 아이템 박스  */}
+      {isEditModalOpen && <ModalForm onClose={closeEditModal} />}
       <S.PlusButton
         onClick={() => {
           if (localStorage.getItem('username')) {
@@ -106,16 +79,21 @@ export default function Main() {
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
         <S.ItemBoxGrid>
-          {data?.data.map((item: QaData, index: number) => (
-            <ItemBox
-              key={item._id}
-              title={item.title}
-              shortAnswer={item.shortAnswer}
-              showAnswer={showAnswerState[item._id] || false}
-              onClick={() => toggleAnswer(item._id)}
-              isEven={index % 2 === 0}
-            />
-          ))}
+          <S.ItemBoxGrid>
+            {data?.data.map((item: QaData, index: number) => (
+              <ItemBox
+                key={item._id}
+                _id={item._id}
+                title={item.title}
+                shortAnswer={item.shortAnswer}
+                showAnswer={
+                  item._id ? showAnswerState[item._id] || false : false
+                }
+                onClick={() => item._id && toggleAnswer(item._id)}
+                isEven={index % 2 === 0}
+              />
+            ))}
+          </S.ItemBoxGrid>
         </S.ItemBoxGrid>
       </S.MainPage>
     </S.Container>
