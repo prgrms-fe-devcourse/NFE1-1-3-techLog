@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Modal from '.';
 import * as S from './index.styles';
 import CategorySelect from './CategorySelect';
@@ -9,10 +9,15 @@ import { editQA, loadQA, registerQA } from '../../api/questionAnswer';
 import useModalStore from '../../store/modalStore';
 import QUERYKEYS from '../../constants/querykeys';
 import { ModalQaData } from '../../interface/modalData';
+import useDialog from '../../hooks/useDialog';
+import Dialog from '../Dialog';
 
-function ModalForm({ onSubmit, onClose }: ModalProps) {
+function ModalForm({ onClose }: ModalProps) {
   const { modalId } = useModalStore();
   const isEditMode = Boolean(modalId); // 수정 모드 여부를 확인
+  const { isDialogOpen, setIsDialogOpen } = useDialog();
+  const queryClient = useQueryClient();
+
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_QA, modalId],
     queryFn: () => (modalId ? loadQA(modalId) : Promise.resolve(null)),
@@ -74,6 +79,7 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
   const mutateRegisterQA = useMutation({
     mutationFn: registerQA,
     onSuccess: res => {
+      setIsDialogOpen(true);
       console.log('성공 후 데이터', res);
     },
     onError: error => {
@@ -84,7 +90,8 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
     mutationFn: ({ id, detailData }: { id: string; detailData: ModalQaData }) =>
       editQA(id, detailData),
     onSuccess: res => {
-      console.log('편집 후 데이터', res);
+      setIsDialogOpen(true);
+      console.log('편집 후 데이터', res, isDialogOpen);
     },
     onError: error => {
       console.log('실패', error);
@@ -92,14 +99,6 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
   });
 
   const handleSubmit = () => {
-    if (onSubmit) {
-      onSubmit({
-        category: selectedCategory,
-        question,
-        shortAnswer,
-        detailedAnswer,
-      });
-    }
     if (modalId) {
       mutateEditQA.mutate({
         id: modalId,
@@ -148,36 +147,58 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
   ];
 
   return (
-    <Modal onClose={onClose}>
-      <CategorySelect value={selectedCategory} onChange={setSelectedCategory} />
+    <>
+      {isDialogOpen && (
+        <Dialog
+          width="46.4rem"
+          description={
+            isEditMode ? '수정이 완료되었어요. ✍️' : '등록이 완료되었어요. 🎉'
+          }
+          cancelButton={() => {
+            setIsDialogOpen(false);
+            onClose();
+            queryClient.invalidateQueries({
+              queryKey: [QUERYKEYS.LOAD_ALL_QA],
+            });
+          }}
+          cancelTitle="확인"
+        />
+      )}
 
-      {inputList.map(input => (
-        <React.Fragment key={input.label}>
-          <S.Label>{input.label}</S.Label>
-          {input.type === 'input' ? (
-            <S.Input
-              value={input.value}
-              onChange={input.onChange}
-              maxLength={input.maxLength}
-              placeholder={input.placeholder}
-            />
-          ) : (
-            <S.Textarea
-              value={input.value}
-              onChange={input.onChange}
-              maxLength={input.maxLength}
-              placeholder={input.placeholder}
-            />
-          )}
-        </React.Fragment>
-      ))}
+      <Modal onClose={onClose}>
+        <CategorySelect
+          value={selectedCategory}
+          onChange={setSelectedCategory}
+        />
 
-      <S.ButtonGroup>
-        <S.SubmitButton onClick={handleSubmit} disabled={isSubmitDisabled}>
-          {data?.data.category ? '수정하기' : '등록하기'}
-        </S.SubmitButton>
-      </S.ButtonGroup>
-    </Modal>
+        {inputList.map(input => (
+          <React.Fragment key={input.label}>
+            <S.Label>{input.label}</S.Label>
+            {input.type === 'input' ? (
+              <S.Input
+                value={input.value}
+                onChange={input.onChange}
+                maxLength={input.maxLength}
+                placeholder={input.placeholder}
+              />
+            ) : (
+              <S.Textarea
+                value={input.value}
+                onChange={input.onChange}
+                maxLength={input.maxLength}
+                placeholder={input.placeholder}
+              />
+            )}
+          </React.Fragment>
+        ))}
+
+        <S.ButtonGroup>
+          <S.SubmitButton onClick={handleSubmit} disabled={isSubmitDisabled}>
+            {data?.data.category ? '수정하기' : '등록하기'}
+          </S.SubmitButton>
+        </S.ButtonGroup>
+      </Modal>
+    </>
   );
 }
 

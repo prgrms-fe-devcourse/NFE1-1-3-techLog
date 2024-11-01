@@ -16,16 +16,6 @@ export default function useModal() {
     modalId,
   } = useModalStore();
 
-  const handleRegisterSubmit = (data: any) => {
-    console.log('등록된 데이터:', data);
-    closeRegisterModal();
-  };
-
-  const handleEditSubmit = (data: any) => {
-    console.log('수정된 데이터:', data);
-    closeEditModal();
-  };
-
   const handleEdit = () => {
     if (modalId) {
       openEditModal(modalId);
@@ -34,7 +24,6 @@ export default function useModal() {
 
   return {
     isRegisterModalOpen,
-    handleRegisterSubmit,
     closeRegisterModal,
     openRegisterModal,
     isReadModalOpen,
@@ -44,6 +33,5 @@ export default function useModal() {
     openEditModal,
     closeEditModal,
     handleEdit,
-    handleEditSubmit,
   };
 }

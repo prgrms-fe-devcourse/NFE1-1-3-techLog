@@ -22,13 +22,11 @@ export default function Main() {
   } = useDialog();
   const {
     isRegisterModalOpen,
-    handleRegisterSubmit,
     closeRegisterModal,
     isReadModalOpen,
     isEditModalOpen,
     closeReadModal,
     handleEdit,
-    handleEditSubmit,
     closeEditModal,
     openRegisterModal,
   } = useModal();
@@ -62,18 +60,11 @@ export default function Main() {
           cancelTitle="돌아가기"
         />
       )}
-      {isRegisterModalOpen && (
-        <ModalForm
-          onSubmit={handleRegisterSubmit}
-          onClose={closeRegisterModal}
-        />
-      )}
+      {isRegisterModalOpen && <ModalForm onClose={closeRegisterModal} />}
       {isReadModalOpen && (
         <ModalRead type="read" onEdit={handleEdit} onClose={closeReadModal} />
       )}
-      {isEditModalOpen && (
-        <ModalForm onSubmit={handleEditSubmit} onClose={closeEditModal} />
-      )}
+      {isEditModalOpen && <ModalForm onClose={closeEditModal} />}
       <S.PlusButton
         onClick={() => {
           if (localStorage.getItem('username')) {
