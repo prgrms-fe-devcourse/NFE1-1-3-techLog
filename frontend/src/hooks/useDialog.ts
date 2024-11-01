@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../store';
+import useStore from '../store/idxStore';
 import PATH from '../constants/path';
 
 export default function useDialog() {
