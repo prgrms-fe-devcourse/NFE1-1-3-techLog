@@ -5,26 +5,48 @@ import * as S from './index.styles';
 import CategorySelect from './CategorySelect';
 import { ModalProps } from '../../interface/modalProps';
 import useInput from '../../hooks/useInput';
-import { loadQA, registerQA } from '../../api/questionAnswer';
+import { editQA, loadQA, registerQA } from '../../api/questionAnswer';
 import useModalStore from '../../store/modalStore';
 import QUERYKEYS from '../../constants/querykeys';
+import { ModalQaData } from '../../interface/modalData';
 
 function ModalForm({ onSubmit, onClose }: ModalProps) {
   const { modalId } = useModalStore();
-
-  if (!modalId) return null;
+  const isEditMode = Boolean(modalId); // 수정 모드 여부를 확인
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAL_QA, modalId],
-    queryFn: () => loadQA(modalId),
+    queryFn: () => (modalId ? loadQA(modalId) : Promise.resolve(null)),
+    enabled: isEditMode,
   });
-  console.log('edit', data);
-  const [selectedCategory, setSelectedCategory] = useState(data?.data.category);
-  const [question, onChangeQuestion] = useInput(data?.data.title);
-  const [shortAnswer, onChangeShortAnswer] = useInput(data?.data.shortAnswer);
-  const [detailedAnswer, onChangeDetailedAnswer] = useInput(
-    data?.data.detailedAnswer,
+  const [selectedCategory, setSelectedCategory] = useState(
+    isEditMode ? data?.data.category : '',
+  );
+  const [question, onChangeQuestion, setQuestion] = useInput(
+    isEditMode ? data?.data.title : '',
+  );
+  const [shortAnswer, onChangeShortAnswer, setShortAnswer] = useInput(
+    isEditMode ? data?.data.shortAnswer : '',
+  );
+  const [detailedAnswer, onChangeDetailedAnswer, setDetailedAnswer] = useInput(
+    isEditMode ? data?.data.detailedAnswer : '',
   );
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  useEffect(() => {
+    if (isEditMode && data?.data) {
+      setSelectedCategory(data.data.category);
+      setQuestion(data.data.title);
+      setShortAnswer(data.data.shortAnswer);
+      setDetailedAnswer(data.data.detailedAnswer);
+      console.log('isEditMode2', isEditMode, modalId);
+    } else {
+      console.log('isEditMode', isEditMode);
+      setSelectedCategory('');
+      setQuestion('');
+      setShortAnswer('');
+      setDetailedAnswer('');
+    }
+  }, [isEditMode, data]);
 
   useEffect(() => {
     // 입력 값이 초기값과 다른지 여부 확인
@@ -58,6 +80,16 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
       console.log('실패', error);
     },
   });
+  const mutateEditQA = useMutation({
+    mutationFn: ({ id, detailData }: { id: string; detailData: ModalQaData }) =>
+      editQA(id, detailData),
+    onSuccess: res => {
+      console.log('편집 후 데이터', res);
+    },
+    onError: error => {
+      console.log('실패', error);
+    },
+  });
 
   const handleSubmit = () => {
     if (onSubmit) {
@@ -68,12 +100,24 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
         detailedAnswer,
       });
     }
-    mutateRegisterQA.mutate({
-      category: selectedCategory,
-      title: question,
-      shortAnswer,
-      detailedAnswer,
-    });
+    if (modalId) {
+      mutateEditQA.mutate({
+        id: modalId,
+        detailData: {
+          category: selectedCategory,
+          title: question,
+          shortAnswer,
+          detailedAnswer,
+        },
+      });
+    } else {
+      mutateRegisterQA.mutate({
+        category: selectedCategory,
+        title: question,
+        shortAnswer,
+        detailedAnswer,
+      });
+    }
   };
 
   const inputList = [
@@ -102,9 +146,6 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
       placeholder: '상세한 답변을 입력해주세요.(선택)',
     },
   ];
-  console.log('질문', question);
-  console.log('짧답', shortAnswer);
-  console.log('긴답', detailedAnswer);
 
   return (
     <Modal onClose={onClose}>

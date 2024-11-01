@@ -13,6 +13,7 @@ export default function useModal() {
     isEditModalOpen,
     openEditModal,
     closeEditModal,
+    modalId,
   } = useModalStore();
 
   const handleRegisterSubmit = (data: any) => {
@@ -31,7 +32,9 @@ export default function useModal() {
   };
 
   const handleEdit = () => {
-    openEditModal();
+    if (modalId) {
+      openEditModal(modalId);
+    }
   };
 
   return {

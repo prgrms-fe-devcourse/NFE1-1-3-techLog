@@ -22,7 +22,7 @@ function ItemBox({
             type="button"
             onClick={e => {
               e.stopPropagation();
-              openReadModal(_id);
+              if (_id) openReadModal(_id);
             }}
             style={{ cursor: 'pointer', color: isEven ? 'white' : 'black' }}
           >
