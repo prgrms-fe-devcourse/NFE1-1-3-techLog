@@ -39,14 +39,22 @@ export default function Main() {
     if (id !== null) {
       setShowAnswerState(prevState => ({
         ...prevState,
-        [id]: !prevState[id], // 클릭된 item의 showAnswer 상태를 반전
+        [id]: !prevState[id],
       }));
     }
   };
+
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_ALL_QA],
     queryFn: loadAllQA,
   });
+
+  const filteredData =
+    Tabs[activeIndex] === 'All'
+      ? data?.data
+      : data?.data.filter(
+          (item: QaData) => item.category === Tabs[activeIndex],
+        );
 
   return (
     <S.Container>
@@ -65,6 +73,7 @@ export default function Main() {
         <ModalRead type="read" onEdit={handleEdit} onClose={closeReadModal} />
       )}
       {isEditModalOpen && <ModalForm onClose={closeEditModal} />}
+
       <S.PlusButton
         onClick={() => {
           if (localStorage.getItem('username')) {
@@ -76,24 +85,21 @@ export default function Main() {
       >
         +
       </S.PlusButton>
+
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
         <S.ItemBoxGrid>
-          <S.ItemBoxGrid>
-            {data?.data.map((item: QaData, index: number) => (
-              <ItemBox
-                key={item._id}
-                _id={item._id}
-                title={item.title}
-                shortAnswer={item.shortAnswer}
-                showAnswer={
-                  item._id ? showAnswerState[item._id] || false : false
-                }
-                onClick={() => item._id && toggleAnswer(item._id)}
-                isEven={index % 2 === 0}
-              />
-            ))}
-          </S.ItemBoxGrid>
+          {filteredData?.map((item: QaData, index: number) => (
+            <ItemBox
+              key={item._id}
+              _id={item._id}
+              title={item.title}
+              shortAnswer={item.shortAnswer}
+              showAnswer={item._id ? showAnswerState[item._id] || false : false}
+              onClick={() => item._id && toggleAnswer(item._id)}
+              isEven={index % 2 === 0}
+            />
+          ))}
         </S.ItemBoxGrid>
       </S.MainPage>
     </S.Container>
