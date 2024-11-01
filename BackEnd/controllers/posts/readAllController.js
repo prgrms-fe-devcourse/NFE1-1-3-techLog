@@ -15,10 +15,20 @@ exports.readAllPosts = async (req, res) => {
       },
     ).sort({ createdAt: -1 }); // 최신순 정렬
 
+    const formattedPosts = posts.map(post => ({
+      _id: post._id,
+      username: post.authorId ? post.authorId.username : null,
+      title: post.title,
+      category: post.category,
+      shortAnswer: post.shortAnswer,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+    }));
+
     res.status(200).json({
       success: true,
-      count: posts.length,
-      data: posts,
+      count: formattedPosts.length,
+      data: formattedPosts,
     });
   } catch (err) {
     res.status(500).json({
