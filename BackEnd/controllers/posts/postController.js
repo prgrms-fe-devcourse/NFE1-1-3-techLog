@@ -1,5 +1,6 @@
 const path = require('path');
 const Post = require(path.join(__dirname, '../../models/post'));
+const User = require(path.join(__dirname, '../../models/user')); // User 모델 추가
 
 exports.createPost = async (req, res) => {
   const { title, category, shortAnswer, detailedAnswer } = req.body;
@@ -9,15 +10,26 @@ exports.createPost = async (req, res) => {
     console.log('게시글 작성자 ID:', req.user.id);
     console.log('받은 게시글 데이터:', { title, category, shortAnswer, detailedAnswer });
 
-        // 필수 입력값 검증
-        if (!title || !category || !shortAnswer) {
-          return res.status(400).json({
-            status: 400,
-            success: false,
-            errorCode: 'FIELD_EMPTY',
-            errors: { message: '필수 항목을 모두 입력해주세요.' },
-          });
-        }
+    // 필수 입력값 검증
+    if (!title || !category || !shortAnswer) {
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        errorCode: 'FIELD_EMPTY',
+        errors: { message: '필수 항목을 모두 입력해주세요.' },
+      });
+    }
+
+    // 사용자 정보 조회
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        success: false,
+        errorCode: 'USER_NOT_FOUND',
+        errors: { message: '사용자를 찾을 수 없습니다.' },
+      });
+    }
 
     // 게시글 생성
     const post = new Post({
@@ -25,7 +37,7 @@ exports.createPost = async (req, res) => {
       category,
       shortAnswer,
       detailedAnswer,
-      authorId: req.user.id  // auth 미들웨어에서 설정된 사용자 ID
+      authorId: req.user.id
     });
 
     const savedPost = await post.save();
@@ -40,13 +52,20 @@ exports.createPost = async (req, res) => {
       });
     }
 
-   // 응답 전송
+    // 응답 데이터 구성
+    const responseData = {
+      ...savedPost.toObject(),
+      username: user.username
+    };
+    delete responseData.authorId; // authorId 필드 제거
+
+    // 응답 전송
     return res.status(201).json({
       status: 201,
       success: true,
       message: '게시글이 성공적으로 생성되었습니다.',
       successCode: 'POST_CREATE_SUCCESS',
-      data: savedPost
+      data: responseData
     });
 
   } catch (error) {

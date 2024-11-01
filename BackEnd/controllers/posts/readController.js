@@ -1,12 +1,13 @@
 // controllers/readController.js
 const path = require('path');
 const Post = require(path.join(__dirname, '../../models/post'));
+const User = require(path.join(__dirname, '../../models/user'));
 
 exports.readPost = async (req, res) => {
   try {
     console.log('Requested ID:', req.params.id); // 디버깅용 로그
 
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('authorId', 'username');
 
     if (!post) {
       return res.status(404).json({
@@ -19,6 +20,7 @@ exports.readPost = async (req, res) => {
       success: true,
       data: {
         _id: post._id,
+        username: post.authorId.username,
         title: post.title,
         category: post.category,
         shortAnswer: post.shortAnswer,
