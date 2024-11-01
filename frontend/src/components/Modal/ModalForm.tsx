@@ -14,7 +14,7 @@ function ModalForm({ onSubmit, onClose }: ModalProps) {
   const { modalId } = useModalStore();
   const isEditMode = Boolean(modalId); // 수정 모드 여부를 확인
   const { data } = useQuery({
-    queryKey: [QUERYKEYS.LOAL_QA, modalId],
+    queryKey: [QUERYKEYS.LOAD_QA, modalId],
     queryFn: () => (modalId ? loadQA(modalId) : Promise.resolve(null)),
     enabled: isEditMode,
   });

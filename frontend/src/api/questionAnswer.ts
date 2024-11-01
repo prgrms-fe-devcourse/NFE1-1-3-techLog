@@ -3,7 +3,7 @@ import apiClient from '.';
 import { ModalQaData } from '../interface/modalData';
 
 export const deleteQA = async (id: string) => {
-  const { data } = await apiClient.post(`${API.DELETE}/${id}`);
+  const { data } = await apiClient.delete(`${API.DELETE}/${id}`);
   return data;
 };
 export const registerQA = async (detailData: ModalQaData) => {

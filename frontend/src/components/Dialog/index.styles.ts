@@ -10,7 +10,7 @@ export const DialogOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center; /* 수직, 수평 가운데 정렬 */
-  z-index: 999; /* 다이얼로그가 최상단에 나타나도록 */
+  z-index: 1050;
 `;
 
 export const DialogWrapper = styled.div<{ width: string }>`

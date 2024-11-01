@@ -26,11 +26,6 @@ export default function useModal() {
     closeEditModal();
   };
 
-  const handleDelete = () => {
-    console.log('데이터 삭제');
-    closeReadModal();
-  };
-
   const handleEdit = () => {
     if (modalId) {
       openEditModal(modalId);
@@ -48,7 +43,6 @@ export default function useModal() {
     isEditModalOpen,
     openEditModal,
     closeEditModal,
-    handleDelete,
     handleEdit,
     handleEditSubmit,
   };

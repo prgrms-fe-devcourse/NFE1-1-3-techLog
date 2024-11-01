@@ -27,7 +27,6 @@ export default function Main() {
     isReadModalOpen,
     isEditModalOpen,
     closeReadModal,
-    handleDelete,
     handleEdit,
     handleEditSubmit,
     closeEditModal,
@@ -50,8 +49,6 @@ export default function Main() {
     queryKey: [QUERYKEYS.LOAD_ALL_QA],
     queryFn: loadAllQA,
   });
-  console.log('data', data);
-  console.log('isRegister', isRegisterModalOpen);
 
   return (
     <S.Container>
@@ -72,12 +69,7 @@ export default function Main() {
         />
       )}
       {isReadModalOpen && (
-        <ModalRead
-          type="read"
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-          onClose={closeReadModal}
-        />
+        <ModalRead type="read" onEdit={handleEdit} onClose={closeReadModal} />
       )}
       {isEditModalOpen && (
         <ModalForm onSubmit={handleEditSubmit} onClose={closeEditModal} />
