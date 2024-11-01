@@ -1,6 +1,5 @@
 exports.logoutUser = async (req, res) => {
   const { token } = req.cookies;
-  // console.log('req', token);
 
   try {
     // 쿠키 옵션에서 만료 시간을 0으로 설정해 즉시 쿠키 삭제
@@ -11,6 +10,8 @@ exports.logoutUser = async (req, res) => {
       maxAge: 0, // 만료기간 0으로 설정해 즉시 만료되게 함
       path: '/',
     };
+
+    console.log('req.cookies', token);
 
     // 쿠키를 비워 토큰 쿠키 삭제
     return res.cookie('token', '', cookieOptions).json({
