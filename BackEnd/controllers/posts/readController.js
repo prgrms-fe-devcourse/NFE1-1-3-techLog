@@ -1,7 +1,6 @@
 // controllers/readController.js
 const path = require('path');
 const Post = require(path.join(__dirname, '../../models/post'));
-const User = require(path.join(__dirname, '../../models/user'));
 
 exports.readPost = async (req, res) => {
   try {
