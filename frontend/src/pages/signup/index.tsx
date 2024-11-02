@@ -10,8 +10,8 @@ import {
   DuplicateButtonWrapper,
 } from './index.styles';
 import InputWithLabel from '../../components/Input';
-import AuthButton from '../../components/Button/AuthButton/index';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
+import SigninButton from '../../components/Button/SignButton';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -177,7 +177,7 @@ export default function Signup() {
         )}
       </InputPassWordWrapper>
 
-      <AuthButton title="가입완료" onClick={handleSubmit} width="50rem" />
+      <SigninButton title="가입완료" onClick={handleSubmit} width="50rem" />
     </Container>
   );
 }
