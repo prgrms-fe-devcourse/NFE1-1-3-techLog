@@ -23,6 +23,7 @@
     "moment-timezone": "^0.5.46",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.2",
+    "socket.io": "^4.8.1",
     "ws": "^8.18.0"
   },
   "devDependencies": {
