@@ -23,7 +23,7 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
-  const [successMessage, setSuccessMessage] = useState(''); // 성공 메시지 상태 추가
+  const [successMessage, setSuccessMessage] = useState('');
   const [isUsernameDuplicate, setIsUsernameDuplicate] = useState(false);
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
@@ -39,25 +39,44 @@ export default function Signup() {
     return passwordRegex.test(inputPassword);
   };
 
+  const isFormValid = () => {
+    return (
+      isUsernameValid &&
+      isDuplicateCheckClicked &&
+      !isUsernameDuplicate &&
+      validatePassword(password) &&
+      confirmPassword === password
+    );
+  };
+
+  const handleSubmit = () => {
+    if (isFormValid()) {
+      console.log('유효성 검사 통과');
+      navigate('/login');
+    } else {
+      console.log('유효성 검사 실패');
+    }
+  };
+
   useEffect(() => {
     if (username) {
       if (validateUsername(username)) {
         setErrors(prevErrors => ({ ...prevErrors, username: '' }));
         setIsUsernameValid(true);
-        setSuccessMessage(''); // 유효성 검사 시 성공 메시지 초기화
+        setSuccessMessage('');
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
           username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
         }));
         setIsUsernameValid(false);
-        setIsDuplicateCheckClicked(false); // 중복확인 상태 초기화
-        setSuccessMessage(''); // 유효하지 않으면 성공 메시지 초기화
+        setIsDuplicateCheckClicked(false);
+        setSuccessMessage('');
       }
     } else {
-      setIsUsernameValid(false); // 아이디가 비어있는 경우 유효성 초기화
-      setIsDuplicateCheckClicked(false); // 아이디가 유효하지 않은 경우 중복확인 비활성화
-      setSuccessMessage(''); // 아이디가 비어있을 때 성공 메시지 초기화
+      setIsUsernameValid(false);
+      setIsDuplicateCheckClicked(false);
+      setSuccessMessage('');
     }
   }, [username]);
 
@@ -75,29 +94,16 @@ export default function Signup() {
     }
   }, [password]);
 
-  const validate = () => {
-    const newErrors = { username: '', password: '', confirmPassword: '' };
-    let isValid = true;
-
-    if (!validateUsername(username)) {
-      newErrors.username = '아이디는 소문자 6자 이상 18자 이내여야 합니다.';
-      isValid = false;
+  useEffect(() => {
+    if (confirmPassword && confirmPassword !== password) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        confirmPassword: '비밀번호가 일치하지 않습니다.',
+      }));
+    } else {
+      setErrors(prevErrors => ({ ...prevErrors, confirmPassword: '' }));
     }
-
-    if (!validatePassword(password)) {
-      newErrors.password =
-        '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.';
-      isValid = false;
-    }
-
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = '비밀번호가 일치하지 않습니다.';
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
+  }, [confirmPassword, password]);
 
   const checkDuplicateUsername = () => {
     if (username === 'testuser') {
@@ -106,22 +112,13 @@ export default function Signup() {
         ...prevErrors,
         username: '존재하고 있는 아이디입니다.',
       }));
-      setSuccessMessage(''); // 중복일 때 성공 메시지 초기화
+      setSuccessMessage('');
     } else {
       setIsUsernameDuplicate(false);
       setErrors(prevErrors => ({ ...prevErrors, username: '' }));
-      setSuccessMessage('사용가능한 아이디입니다.'); // 중복이 아닐 때 성공 메시지 설정
+      setSuccessMessage('사용가능한 아이디입니다.');
     }
     setIsDuplicateCheckClicked(true);
-  };
-
-  const handleSubmit = () => {
-    if (validate() && !isUsernameDuplicate) {
-      console.log('유효성 검사 통과');
-      navigate('/login');
-    } else {
-      console.log('유효성 검사 실패');
-    }
   };
 
   return (
@@ -177,7 +174,12 @@ export default function Signup() {
         )}
       </InputPassWordWrapper>
 
-      <SigninButton title="가입완료" onClick={handleSubmit} width="50rem" />
+      <SigninButton
+        title="가입완료"
+        onClick={handleSubmit}
+        disabled={!isFormValid()}
+        width="50rem"
+      />
     </Container>
   );
 }
