@@ -9,4 +9,7 @@ export const authLogin = async (userLoginData: {
   return data;
 };
 
-export const authLogout = async () => {};
+export const authLogout = async () => {
+  const { data } = await apiClient.post(API.LOGOUT);
+  return data;
+};
