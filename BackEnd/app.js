@@ -15,6 +15,8 @@ const postRoutes = require(path.join(__dirname, './routes/postRoutes'));
 // 게시글 관련 라우터
 const userRoutes = require(path.join(__dirname, './routes/userRoutes'));
 // 사용자 관련 라우터
+const commentRoutes = require(path.join(__dirname, './routes/commentRoutes'));
+// 댓글 관련 라우터
 
 const app = express();
 
@@ -45,8 +47,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// 라우트 설정
-app.use('/posts', postRoutes);
-app.use('/user', userRoutes);
+// 7. 라우트 설정
+app.use('/posts', postRoutes); // /posts로 시작하는 요청을 postRoutes로 처리
+app.use('/user', userRoutes); // /user로 시작하는 요청을 userRoutes로 처리
+app.use('/comments', commentRoutes); // /comments로 시작하는 요청을 commentRoutes로 처리
+
 
 module.exports = app;
