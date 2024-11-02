@@ -1,4 +1,3 @@
-// store.ts
 import { create } from 'zustand';
 
 interface StoreState {
@@ -6,9 +5,9 @@ interface StoreState {
   setActiveIndex: (index: number) => void;
 }
 
-const useStore = create<StoreState>(set => ({
+const useIdxStore = create<StoreState>(set => ({
   activeIndex: 0,
   setActiveIndex: index => set({ activeIndex: index }),
 }));
 
-export default useStore;
+export default useIdxStore;

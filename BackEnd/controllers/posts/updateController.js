@@ -24,7 +24,7 @@ exports.updatePost = async (req, res) => {
     }
 
     // 3. 작성자 권한 확인
-    if (post.authorId !== req.cookies.token) {
+    if (post.authorId.toString() !== req.user.id) {
       return res.status(403).json({
         success: false,
         message: '본인이 작성한 게시글만 수정할 수 있습니다.',

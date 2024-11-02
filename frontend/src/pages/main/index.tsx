@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import * as S from './index.styles';
 import Dialog from '../../components/Dialog';
 import ModalRead from '../../components/Modal/ModalRead';
@@ -6,43 +7,46 @@ import ModalForm from '../../components/Modal/ModalForm';
 import useModal from '../../hooks/useModal';
 import useDialog from '../../hooks/useDialog';
 import ItemBox from '../../components/ItemBox';
+import { loadAllQA } from '../../api/questionAnswer';
+import QUERYKEYS from '../../constants/querykeys';
+import { QaData } from '../../interface/qaData';
 
 export default function Main() {
-  const { isDialogOpen, handleConfirm, handleCancel, Tabs, activeIndex } =
-    useDialog();
+  const {
+    isDialogOpen,
+    handleConfirm,
+    handleCancel,
+    Tabs,
+    activeIndex,
+    setIsDialogOpen,
+  } = useDialog();
   const {
     isRegisterModalOpen,
-    handleRegisterSubmit,
     closeRegisterModal,
     isReadModalOpen,
-    detailData,
     isEditModalOpen,
     closeReadModal,
-    handleDelete,
     handleEdit,
-    handleEditSubmit,
     closeEditModal,
+    openRegisterModal,
   } = useModal();
 
-  const initialItems = [
-    {
-      // question, answer이 추가로 생성되면 값 추가
-      id: 1,
-      question: 'What is React?',
-      answer: 'A JavaScript library for building UIs',
-      showAnswer: false,
-    },
-  ];
+  const [showAnswerState, setShowAnswerState] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const [itemList, setItemList] = useState(initialItems);
-
-  const toggleAnswer = (id: number) => {
-    setItemList(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, showAnswer: !item.showAnswer } : item,
-      ),
-    );
+  const toggleAnswer = (id: string | null) => {
+    if (id !== null) {
+      setShowAnswerState(prevState => ({
+        ...prevState,
+        [id]: !prevState[id], // 클릭된 item의 showAnswer 상태를 반전
+      }));
+    }
   };
+  const { data } = useQuery({
+    queryKey: [QUERYKEYS.LOAD_ALL_QA],
+    queryFn: loadAllQA,
+  });
 
   return (
     <S.Container>
@@ -56,47 +60,40 @@ export default function Main() {
           cancelTitle="돌아가기"
         />
       )}
-      {isRegisterModalOpen && (
-        <ModalForm
-          initialCategory="React"
-          onSubmit={handleRegisterSubmit}
-          onClose={closeRegisterModal}
-        />
-      )}
+      {isRegisterModalOpen && <ModalForm onClose={closeRegisterModal} />}
       {isReadModalOpen && (
-        <ModalRead
-          type="read"
-          initialCategory={detailData.category}
-          question={detailData.question}
-          shortAnswer={detailData.shortAnswer}
-          detailedAnswer={detailData.detailedAnswer}
-          onClose={closeReadModal}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-        />
+        <ModalRead type="read" onEdit={handleEdit} onClose={closeReadModal} />
       )}
-      {isEditModalOpen && (
-        <ModalForm
-          onSubmit={handleEditSubmit}
-          onClose={closeEditModal}
-          initialCategory={detailData.category}
-          initialQuestion={detailData.question}
-          initialShortAnswer={detailData.shortAnswer}
-          initialDetailedAnswer={detailData.detailedAnswer}
-        />
-      )}
+      {isEditModalOpen && <ModalForm onClose={closeEditModal} />}
+      <S.PlusButton
+        onClick={() => {
+          if (localStorage.getItem('username')) {
+            openRegisterModal();
+          } else {
+            setIsDialogOpen(true);
+          }
+        }}
+      >
+        +
+      </S.PlusButton>
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
         <S.ItemBoxGrid>
-          {itemList.map(item => (
-            <ItemBox
-              key={item.id}
-              question={item.question}
-              answer={item.answer}
-              showAnswer={item.showAnswer}
-              onClick={() => toggleAnswer(item.id)} // 클릭 시 답변 토글
-            />
-          ))}
+          <S.ItemBoxGrid>
+            {data?.data.map((item: QaData, index: number) => (
+              <ItemBox
+                key={item._id}
+                _id={item._id}
+                title={item.title}
+                shortAnswer={item.shortAnswer}
+                showAnswer={
+                  item._id ? showAnswerState[item._id] || false : false
+                }
+                onClick={() => item._id && toggleAnswer(item._id)}
+                isEven={index % 2 === 0}
+              />
+            ))}
+          </S.ItemBoxGrid>
         </S.ItemBoxGrid>
       </S.MainPage>
     </S.Container>
