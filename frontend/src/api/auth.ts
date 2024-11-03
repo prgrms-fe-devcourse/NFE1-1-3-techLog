@@ -24,4 +24,7 @@ export const authDuplicate = async (userDuplicateData: {
   return data;
 };
 
-export const authLogout = async () => {};
+export const authLogout = async () => {
+  const { data } = await apiClient.post(API.LOGOUT);
+  return data;
+};

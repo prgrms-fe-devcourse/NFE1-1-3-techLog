@@ -7,6 +7,7 @@ export interface QaData {
   shortAnswer: string;
   createdAt: string;
   updatedAt: string;
+  username: string;
 }
 
 export interface QaDataWithOnClick
