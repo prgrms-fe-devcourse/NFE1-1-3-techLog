@@ -34,7 +34,8 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
-  <img src="https://gifmaker.me/video-to-gif/viewimage/20241103-04-lUsHjtfpBuquQf3t-JdsLYn-hnet">
+
+![React-App-Google-Chrome-2024-11-04-01-36-59](https://github.com/user-attachments/assets/a9bc58f2-7500-45b9-8ead-60ebed7a9c8d)
 
 **✔️질문 답변 및 상세 보기**
 
