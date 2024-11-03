@@ -3,12 +3,12 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
     "import/extensions": "off",
     "prettier/prettier": ["error", {
       "endOfLine": "auto",
-      "trailingComma": "none"
+      "trailingComma": "es5"
     }],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/jsx-props-no-spreading": "off",
@@ -16,7 +16,7 @@
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "react/jsx-filename-extension": [
       2,
-      { "extensions": [".js", ".ts", ".tsx"] }
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
     "jsx-a11y/label-has-associated-control": [
       2,
@@ -24,6 +24,8 @@
         "labelAttributes": ["htmlFor"]
       }
     ],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "linebreak-style": ["error", "unix"]
   }
 }
