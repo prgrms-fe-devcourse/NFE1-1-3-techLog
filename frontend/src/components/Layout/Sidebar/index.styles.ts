@@ -37,7 +37,11 @@ export const ListContainer = styled.ul`
   padding: 0;
 `;
 
-export const ListItem = styled.li<{ isActive: boolean }>`
+export const ListItem = styled.li<{
+  isActive: boolean;
+  isLastItem?: boolean;
+  isSecondLastItem?: boolean;
+}>`
   background-color: ${({ isActive }) => (isActive ? '#6a6982' : 'white')};
   color: ${({ isActive }) => (isActive ? 'white' : 'black')};
   padding: 1.5rem 4.7rem;
@@ -48,11 +52,23 @@ export const ListItem = styled.li<{ isActive: boolean }>`
     background-color 0.3s,
     color 0.3s;
 
-  &:last-child {
-    position: absolute;
-    left: 0;
-    bottom: 4rem;
-    width: calc(100% - 4rem);
-    margin-left: 2rem;
-  }
+  ${({ isLastItem }) =>
+    isLastItem &&
+    `
+      position: absolute;
+      left: 0;
+      bottom: 4rem;
+      width: calc(100% - 4rem);
+      margin-left: 2rem;
+    `}
+
+  ${({ isSecondLastItem }) =>
+    isSecondLastItem &&
+    `
+      position: absolute;
+      left: 0;
+      bottom: 9rem;
+      width: calc(100% - 4rem);
+      margin-left: 2rem;
+    `}
 `;

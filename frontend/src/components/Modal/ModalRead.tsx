@@ -12,6 +12,7 @@ import Dialog from '../Dialog';
 function ModalRead({ onEdit }: ModalProps) {
   const { isReadModalOpen, modalId, closeReadModal } = useModalStore();
   const { isDialogOpen, setIsDialogOpen, handleCancel } = useDialog();
+  const username = localStorage.getItem('username');
 
   if (!isReadModalOpen || !modalId) return null;
   const { data } = useQuery({
@@ -30,6 +31,9 @@ function ModalRead({ onEdit }: ModalProps) {
       console.log('삭제 실패', error);
     }
   });
+
+  console.log('username', data?.data);
+
   return (
     <>
       {isDialogOpen && (
@@ -55,14 +59,18 @@ function ModalRead({ onEdit }: ModalProps) {
         <S.Label>상세 답변</S.Label>
         <S.Textarea value={data?.data.detailedAnswer} disabled />
         <S.ButtonGroup>
-          <S.DeleteButton
-            onClick={() => {
-              setIsDialogOpen(true);
-            }}
-          >
-            삭제하기
-          </S.DeleteButton>
-          <S.EditButton onClick={onEdit}>수정하기</S.EditButton>
+          {username === data?.data.username && (
+            <>
+              <S.DeleteButton
+                onClick={() => {
+                  setIsDialogOpen(true);
+                }}
+              >
+                삭제하기
+              </S.DeleteButton>
+              <S.EditButton onClick={onEdit}>수정하기</S.EditButton>
+            </>
+          )}
         </S.ButtonGroup>
       </Modal>
     </>
