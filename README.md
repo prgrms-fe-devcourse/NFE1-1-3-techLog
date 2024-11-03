@@ -34,7 +34,7 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
-  <img src="https://gifmaker.me/video-to-gif/download/20241103-03-AV8jkzOJEimQveFW-MMEf8C/GIFMaker_me.gif">
+  <img src="https://gifmaker.me/video-to-gif/viewimage/20241103-04-lUsHjtfpBuquQf3t-JdsLYn-hnet">
 
 **✔️질문 답변 및 상세 보기**
 
@@ -58,11 +58,13 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 ### 📌Frond-end
 
+<div style={{display: "flex"}}>
 <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
 <img src="https://img.shields.io/badge/Styled--Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 <img src="https://img.shields.io/badge/React--Query-FF4154?style=for-the-badge&logo=React-Query&logoColor=white">
+</div>
 
 ### 📌Back-end
 
@@ -74,11 +76,13 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 ### 📌버전 관리 및 협업 도구
 
+<div style={{display: "flex"}}>
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">
 <img src="https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=Zoom&logoColor=white">
+</div>
 
 <br />
 
