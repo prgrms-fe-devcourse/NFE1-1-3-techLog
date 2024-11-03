@@ -6,12 +6,8 @@ import {
   InputIDWrapper,
   InputPassWordWrapper,
   ErrorMessage,
-<<<<<<< HEAD
-  DuplicateButtonWrapper
-=======
   SuccessMessage,
   DuplicateButtonWrapper,
->>>>>>> 8f9b38b1f08cfb5a2bc9dbbf590c4f01a06ccf81
 } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
