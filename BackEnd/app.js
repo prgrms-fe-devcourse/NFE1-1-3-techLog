@@ -52,5 +52,4 @@ app.use('/posts', postRoutes); // /posts로 시작하는 요청을 postRoutes로
 app.use('/user', userRoutes); // /user로 시작하는 요청을 userRoutes로 처리
 app.use('/comments', commentRoutes); // /comments로 시작하는 요청을 commentRoutes로 처리
 
-
 module.exports = app;

@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
+const {
+  createComment,
+  getCommentsByPost,
+} = require('../controllers/comments/commentController');
 
-const commentController = require(
-  path.join(__dirname, '../controllers/comments/commentController'),
-);
-const verifyToken = require(path.join(__dirname, '../middleware/auth'));
+// 댓글 생성
+router.post('/', createComment);
 
-router.post('/:postId', verifyToken, commentController.createComment);
-router.get('/post/:postId', commentController.getPostComments);
+// 게시글별 댓글 조회
+router.get('/post/:postId', getCommentsByPost);
 
 module.exports = router;
