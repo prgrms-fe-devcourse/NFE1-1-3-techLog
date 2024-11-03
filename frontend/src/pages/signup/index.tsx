@@ -12,6 +12,7 @@ import {
 import InputWithLabel from '../../components/Input';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
 import SigninButton from '../../components/Button/SignButton';
+import { authSignup } from '../../api/auth';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Signup() {
   const [errors, setErrors] = useState({
     username: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [isUsernameDuplicate, setIsUsernameDuplicate] = useState(false);
@@ -29,7 +30,8 @@ export default function Signup() {
   const [isDuplicateCheckClicked, setIsDuplicateCheckClicked] = useState(false);
 
   const validateUsername = (inputUsername: string) => {
-    const usernameRegex = /^(?=.{6,18}$)[a-z0-9]*[a-z][a-z0-9]*$/;
+    // 영문 소문자와 숫자를 반드시 포함하고, 6~18자 길이 제한
+    const usernameRegex = /^(?=.*[a-z])(?=.*\d)[a-z0-9]{6,18}$/;
     return usernameRegex.test(inputUsername);
   };
 
@@ -49,10 +51,32 @@ export default function Signup() {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isFormValid()) {
-      console.log('유효성 검사 통과');
-      navigate('/login');
+      try {
+        const response = await authSignup({ username, password });
+        if (response.success) {
+          console.log('회원가입 성공');
+          navigate('/login');
+        } else {
+          // 서버에서 받은 구체적인 에러 메시지 사용
+          setErrors(prevErrors => ({
+            ...prevErrors,
+            username: response.error || '회원가입에 실패했습니다.',
+          }));
+        }
+      } catch (error: any) {
+        // 서버 응답의 에러 메시지 확인
+        const errorMessage =
+          error.response?.data?.errors?.message ||
+          '서버와 통신하는 중 오류가 발생했습니다.';
+
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          username: errorMessage,
+        }));
+        console.error('서버 오류:', error);
+      }
     } else {
       console.log('유효성 검사 실패');
     }
@@ -67,7 +91,7 @@ export default function Signup() {
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
-          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.'
+          username: 'id는 6~18자의 영문 소문자, 숫자를 포함해야 합니다.',
         }));
         setIsUsernameValid(false);
         setIsDuplicateCheckClicked(false);
@@ -88,7 +112,7 @@ export default function Signup() {
         setErrors(prevErrors => ({
           ...prevErrors,
           password:
-            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.'
+            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.',
         }));
       }
     }
@@ -110,7 +134,7 @@ export default function Signup() {
       setIsUsernameDuplicate(true);
       setErrors(prevErrors => ({
         ...prevErrors,
-        username: '존재하고 있는 아이디입니다.'
+        username: '존재하고 있는 아이디입니다.',
       }));
       setSuccessMessage('');
     } else {
