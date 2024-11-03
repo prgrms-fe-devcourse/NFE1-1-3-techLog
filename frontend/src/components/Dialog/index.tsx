@@ -15,7 +15,7 @@ function Dialog({
   confirmButton,
   confirmTitle = '확인',
   cancelButton,
-  cancelTitle
+  cancelTitle,
 }: DialogProps) {
   return (
     <S.DialogOverlay>

@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 
 const apiClient = axios.create({
   baseURL: API.BASE_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 apiClient.interceptors.response.use(
