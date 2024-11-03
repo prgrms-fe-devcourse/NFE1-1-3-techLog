@@ -3,7 +3,7 @@ import * as S from './index.styles';
 
 function Modal({
   children,
-  onClose,
+  onClose
 }: {
   children: React.ReactNode;
   onClose: () => void;

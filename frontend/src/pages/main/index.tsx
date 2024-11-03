@@ -18,7 +18,7 @@ export default function Main() {
     handleCancel,
     Tabs,
     activeIndex,
-    setIsDialogOpen,
+    setIsDialogOpen
   } = useDialog();
   const {
     isRegisterModalOpen,
@@ -28,7 +28,7 @@ export default function Main() {
     closeReadModal,
     handleEdit,
     closeEditModal,
-    openRegisterModal,
+    openRegisterModal
   } = useModal();
 
   const [showAnswerState, setShowAnswerState] = useState<{
@@ -39,21 +39,21 @@ export default function Main() {
     if (id !== null) {
       setShowAnswerState(prevState => ({
         ...prevState,
-        [id]: !prevState[id],
+        [id]: !prevState[id]
       }));
     }
   };
 
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_ALL_QA],
-    queryFn: loadAllQA,
+    queryFn: loadAllQA
   });
 
   const filteredData =
     Tabs[activeIndex] === 'All'
       ? data?.data
       : data?.data.filter(
-          (item: QaData) => item.category === Tabs[activeIndex],
+          (item: QaData) => item.category === Tabs[activeIndex]
         );
 
   return (

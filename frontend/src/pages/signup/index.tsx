@@ -6,7 +6,7 @@ import {
   InputIDWrapper,
   InputPassWordWrapper,
   ErrorMessage,
-  DuplicateButtonWrapper,
+  DuplicateButtonWrapper
 } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import AuthButton from '../../components/Button/AuthButton/index';
@@ -21,7 +21,7 @@ export default function Signup() {
   const [errors, setErrors] = useState({
     username: '',
     password: '',
-    confirmPassword: '',
+    confirmPassword: ''
   });
   const [isUsernameDuplicate, setIsUsernameDuplicate] = useState(false);
   const [isUsernameValid, setIsUsernameValid] = useState(false);
@@ -46,7 +46,7 @@ export default function Signup() {
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
-          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
+          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.'
         }));
         setIsUsernameValid(false);
       }
@@ -61,7 +61,7 @@ export default function Signup() {
         setErrors(prevErrors => ({
           ...prevErrors,
           password:
-            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.',
+            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.'
         }));
       }
     }
@@ -96,7 +96,7 @@ export default function Signup() {
       setIsUsernameDuplicate(true);
       setErrors(prevErrors => ({
         ...prevErrors,
-        username: '존재하고 있는 아이디입니다.',
+        username: '존재하고 있는 아이디입니다.'
       }));
     } else {
       setIsUsernameDuplicate(false);

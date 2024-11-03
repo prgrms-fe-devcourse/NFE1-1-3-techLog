@@ -19,7 +19,7 @@ const useModalStore = create<ModalStore>(set => ({
   closeReadModal: () => set({ modalId: null, isReadModalOpen: false }),
   openEditModal: id =>
     set({ modalId: id, isReadModalOpen: false, isEditModalOpen: true }),
-  closeEditModal: () => set({ modalId: null, isEditModalOpen: false }),
+  closeEditModal: () => set({ modalId: null, isEditModalOpen: false })
 }));
 
 export default useModalStore;

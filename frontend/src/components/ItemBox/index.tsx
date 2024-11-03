@@ -9,7 +9,7 @@ function ItemBox({
   title,
   showAnswer,
   onClick,
-  isEven,
+  isEven
 }: Partial<QaDataWithOnClick>) {
   const openReadModal = useModalStore(state => state.openReadModal);
 
@@ -18,18 +18,18 @@ function ItemBox({
       <S.Title>{showAnswer ? shortAnswer : title}</S.Title>
       <S.Box style={{ color: isEven ? 'white' : 'black' }}>
         {showAnswer ? (
-          <button
+          <S.AnswerButton
             type="button"
             onClick={e => {
               e.stopPropagation();
               if (_id) openReadModal(_id);
             }}
-            style={{ cursor: 'pointer', color: isEven ? 'white' : 'black' }}
+            isEven={isEven}
           >
             상세 답변 보러가기 →
-          </button>
+          </S.AnswerButton>
         ) : (
-          <p>답변 보기 →</p>
+          <S.AnswerText>답변 보기 →</S.AnswerText>
         )}
       </S.Box>
     </S.ItemBox>

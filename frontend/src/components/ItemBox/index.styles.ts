@@ -31,3 +31,18 @@ export const Box = styled.div`
     background-color: transparent;
   }
 `;
+
+export const AnswerButton = styled.button<{ isEven?: boolean }>`
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  color: ${({ isEven }) => (isEven ? 'white' : 'black')};
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+`;
+
+export const AnswerText = styled.p`
+  font-size: 1.5rem;
+  margin: 0;
+`;

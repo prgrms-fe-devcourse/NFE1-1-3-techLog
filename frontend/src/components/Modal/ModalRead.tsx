@@ -16,7 +16,7 @@ function ModalRead({ onEdit }: ModalProps) {
   if (!isReadModalOpen || !modalId) return null;
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_QA, modalId],
-    queryFn: () => loadQA(modalId),
+    queryFn: () => loadQA(modalId)
   });
   const queryClient = useQueryClient();
 
@@ -28,7 +28,7 @@ function ModalRead({ onEdit }: ModalProps) {
     },
     onError: error => {
       console.log('삭제 실패', error);
-    },
+    }
   });
   return (
     <>
