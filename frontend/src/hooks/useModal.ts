@@ -13,7 +13,7 @@ export default function useModal() {
     isEditModalOpen,
     openEditModal,
     closeEditModal,
-    modalId,
+    modalId
   } = useModalStore();
 
   const handleEdit = () => {
@@ -32,6 +32,6 @@ export default function useModal() {
     isEditModalOpen,
     openEditModal,
     closeEditModal,
-    handleEdit,
+    handleEdit
   };
 }

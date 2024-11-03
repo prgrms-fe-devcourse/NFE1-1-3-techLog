@@ -21,19 +21,19 @@ function ModalForm({ onClose }: ModalProps) {
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_QA, modalId],
     queryFn: () => (modalId ? loadQA(modalId) : Promise.resolve(null)),
-    enabled: isEditMode,
+    enabled: isEditMode
   });
   const [selectedCategory, setSelectedCategory] = useState(
-    isEditMode ? data?.data.category : '',
+    isEditMode ? data?.data.category : ''
   );
   const [question, onChangeQuestion, setQuestion] = useInput(
-    isEditMode ? data?.data.title : '',
+    isEditMode ? data?.data.title : ''
   );
   const [shortAnswer, onChangeShortAnswer, setShortAnswer] = useInput(
-    isEditMode ? data?.data.shortAnswer : '',
+    isEditMode ? data?.data.shortAnswer : ''
   );
   const [detailedAnswer, onChangeDetailedAnswer, setDetailedAnswer] = useInput(
-    isEditMode ? data?.data.detailedAnswer : '',
+    isEditMode ? data?.data.detailedAnswer : ''
   );
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
@@ -63,7 +63,7 @@ function ModalForm({ onClose }: ModalProps) {
 
     // 필수 입력 필드가 채워지고 변경 사항이 있는 경우에만 활성화
     setIsSubmitDisabled(
-      !hasChanges || !selectedCategory || !question || !shortAnswer,
+      !hasChanges || !selectedCategory || !question || !shortAnswer
     );
   }, [
     selectedCategory,
@@ -73,7 +73,7 @@ function ModalForm({ onClose }: ModalProps) {
     data?.data.category,
     data?.data.title,
     data?.data.shortAnswer,
-    data?.data.detailedAnswer,
+    data?.data.detailedAnswer
   ]);
 
   const mutateRegisterQA = useMutation({
@@ -84,7 +84,7 @@ function ModalForm({ onClose }: ModalProps) {
     },
     onError: error => {
       console.log('실패', error);
-    },
+    }
   });
   const mutateEditQA = useMutation({
     mutationFn: ({ id, detailData }: { id: string; detailData: ModalQaData }) =>
@@ -95,7 +95,7 @@ function ModalForm({ onClose }: ModalProps) {
     },
     onError: error => {
       console.log('실패', error);
-    },
+    }
   });
 
   const handleSubmit = () => {
@@ -106,15 +106,15 @@ function ModalForm({ onClose }: ModalProps) {
           category: selectedCategory,
           title: question,
           shortAnswer,
-          detailedAnswer,
-        },
+          detailedAnswer
+        }
       });
     } else {
       mutateRegisterQA.mutate({
         category: selectedCategory,
         title: question,
         shortAnswer,
-        detailedAnswer,
+        detailedAnswer
       });
     }
   };
@@ -126,7 +126,7 @@ function ModalForm({ onClose }: ModalProps) {
       onChange: onChangeQuestion,
       type: 'input',
       maxLength: 50,
-      placeholder: '질문을 입력해주세요.',
+      placeholder: '질문을 입력해주세요.'
     },
     {
       label: '간단 답변',
@@ -134,7 +134,7 @@ function ModalForm({ onClose }: ModalProps) {
       onChange: onChangeShortAnswer,
       type: 'input',
       maxLength: 70,
-      placeholder: '간단한 답변을 입력해주세요.',
+      placeholder: '간단한 답변을 입력해주세요.'
     },
     {
       label: '상세 답변',
@@ -142,8 +142,8 @@ function ModalForm({ onClose }: ModalProps) {
       onChange: onChangeDetailedAnswer,
       type: 'textarea',
       maxLength: 600,
-      placeholder: '상세한 답변을 입력해주세요.(선택)',
-    },
+      placeholder: '상세한 답변을 입력해주세요.(선택)'
+    }
   ];
 
   return (
@@ -158,7 +158,7 @@ function ModalForm({ onClose }: ModalProps) {
             setIsDialogOpen(false);
             onClose();
             queryClient.invalidateQueries({
-              queryKey: [QUERYKEYS.LOAD_ALL_QA],
+              queryKey: [QUERYKEYS.LOAD_ALL_QA]
             });
           }}
           cancelTitle="확인"

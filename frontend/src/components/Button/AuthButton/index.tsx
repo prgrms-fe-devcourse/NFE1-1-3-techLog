@@ -38,7 +38,7 @@ function AuthButton({
   width,
   onClick,
   disabled,
-  type = 'button',
+  type = 'button'
 }: AuthButtonProps) {
   return (
     <Button width={width} onClick={onClick} disabled={disabled} type={type}>

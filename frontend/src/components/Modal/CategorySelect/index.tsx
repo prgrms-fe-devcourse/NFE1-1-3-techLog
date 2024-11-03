@@ -11,7 +11,7 @@ interface CategorySelectProps {
 function CategorySelect({
   value,
   onChange,
-  disabled = false,
+  disabled = false
 }: CategorySelectProps) {
   return (
     <S.Select
