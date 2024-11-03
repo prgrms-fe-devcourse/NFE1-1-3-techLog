@@ -18,7 +18,7 @@ export default function Main() {
     handleCancel,
     Tabs,
     activeIndex,
-    setIsDialogOpen
+    setIsDialogOpen,
   } = useDialog();
   const {
     isRegisterModalOpen,
@@ -28,33 +28,41 @@ export default function Main() {
     closeReadModal,
     handleEdit,
     closeEditModal,
-    openRegisterModal
+    openRegisterModal,
   } = useModal();
 
   const [showAnswerState, setShowAnswerState] = useState<{
     [key: string]: boolean;
   }>({});
 
+  const username = localStorage.getItem('username');
+
   const toggleAnswer = (id: string | null) => {
     if (id !== null) {
       setShowAnswerState(prevState => ({
         ...prevState,
-        [id]: !prevState[id]
+        [id]: !prevState[id],
       }));
     }
   };
 
   const { data } = useQuery({
     queryKey: [QUERYKEYS.LOAD_ALL_QA],
-    queryFn: loadAllQA
+    queryFn: loadAllQA,
   });
 
+  // 일반 카테고리 필터링
   const filteredData =
     Tabs[activeIndex] === 'All'
       ? data?.data
       : data?.data.filter(
           (item: QaData) => item.category === Tabs[activeIndex]
         );
+
+  // MYPAGE 필터링
+  const mypageFilteredData = data?.data.filter(
+    (item: QaData) => item.username === username
+  );
 
   return (
     <S.Container>
@@ -89,17 +97,21 @@ export default function Main() {
       <S.MainPage>
         <h1>{Tabs[activeIndex]}</h1>
         <S.ItemBoxGrid>
-          {filteredData?.map((item: QaData, index: number) => (
-            <ItemBox
-              key={item._id}
-              _id={item._id}
-              title={item.title}
-              shortAnswer={item.shortAnswer}
-              showAnswer={item._id ? showAnswerState[item._id] || false : false}
-              onClick={() => item._id && toggleAnswer(item._id)}
-              isEven={index % 2 === 0}
-            />
-          ))}
+          {(activeIndex === 4 ? mypageFilteredData : filteredData)?.map(
+            (item: QaData, index: number) => (
+              <ItemBox
+                key={item._id}
+                _id={item._id}
+                title={item.title}
+                shortAnswer={item.shortAnswer}
+                showAnswer={
+                  item._id ? showAnswerState[item._id] || false : false
+                }
+                onClick={() => item._id && toggleAnswer(item._id)}
+                isEven={index % 2 === 0}
+              />
+            )
+          )}
         </S.ItemBoxGrid>
       </S.MainPage>
     </S.Container>

@@ -19,7 +19,7 @@ export default function Sidebar() {
   const handleClick = (index: number) => {
     setActiveIndex(index);
     if (index === 4) {
-      if (localStorage.getItem('username')) navigate(PATH.MYPAGE);
+      if (localStorage.getItem('username')) setActiveIndex(4);
       else navigate(PATH.LOGIN);
     }
   };

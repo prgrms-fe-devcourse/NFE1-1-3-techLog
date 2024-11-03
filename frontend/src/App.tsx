@@ -17,15 +17,9 @@ function App() {
         <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
           <Route index element={<SignUp />} />
         </Route>
-        {/* <Route path={PATH.SIGNUP} element={<DefaultLayout />}>
-          <Route index element={<Signup />} />
-        </Route> */}
         <Route path={PATH.MAIN} element={<MainLayout />}>
           <Route index element={<Main />} />
         </Route>
-        {/* <Route path={PATH.MYPAGE} element={<MainLayout />}>
-          <Route path=":userId" element={<Mypage />} />
-        </Route> */}
       </Routes>
     </Router>
   );
