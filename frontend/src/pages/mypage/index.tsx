@@ -11,7 +11,7 @@ import { loadAllQA } from '../../api/questionAnswer';
 import QUERYKEYS from '../../constants/querykeys';
 import { QaData } from '../../interface/qaData';
 
-export default function Main() {
+export default function Mypage() {
   const { isDialogOpen, handleConfirm, handleCancel } = useDialog();
   const {
     isReadModalOpen,
@@ -41,8 +41,10 @@ export default function Main() {
   });
 
   const filteredData = data?.data.filter(
-    (item: QaData) => item.username === username,
+    (item: QaData) => item.username === username
   );
+
+  console.log('mypage', data);
 
   return (
     <S.Container>

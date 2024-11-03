@@ -91,7 +91,7 @@ export default function Signup() {
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
-          username: 'id는 6~18자의 영문 소문자, 숫자를 포함해야 합니다.',
+          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
         }));
         setIsUsernameValid(false);
         setIsDuplicateCheckClicked(false);
