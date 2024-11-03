@@ -7,18 +7,29 @@ exports.readAllPosts = async (req, res) => {
       {},
       {
         _id: 1,
+        authorId: 1,
         title: 1,
         category: 1,
         shortAnswer: 1,
         createdAt: 1,
         updatedAt: 1,
       },
-    ).sort({ createdAt: -1 }); // 최신순 정렬
+    ).populate('authorId', 'username').sort({ createdAt: -1 }); // authorId 필드를 populate
+
+    const formattedPosts = posts.map(post => ({
+      _id: post._id,
+      username: post.authorId ? post.authorId.username : 'Unknown', // authorId가 없는 경우 처리
+      title: post.title,
+      category: post.category,
+      shortAnswer: post.shortAnswer,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+    }));
 
     res.status(200).json({
       success: true,
-      count: posts.length,
-      data: posts,
+      count: formattedPosts.length,
+      data: formattedPosts,
     });
   } catch (err) {
     res.status(500).json({

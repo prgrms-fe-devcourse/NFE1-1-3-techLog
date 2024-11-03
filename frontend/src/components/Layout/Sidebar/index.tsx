@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './index.styles';
 import PATH from '../../../constants/path';
-import useStore from '../../../store';
+import useStore from '../../../store/idxStore';
 
 export default function Sidebar() {
   const navigate = useNavigate();

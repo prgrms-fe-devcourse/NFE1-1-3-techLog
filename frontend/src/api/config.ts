@@ -5,6 +5,12 @@ const API = {
   LOGIN: `user/login`,
   SIGNUP: `user/signup`,
   DUPLICATE: `user/idCheck`,
+  REGISTER: 'posts/create',
+  DELETE: 'posts/delete',
+  READ: 'posts/read',
+  EDIT: 'posts/update',
+  READ_QA_LIST: 'posts/all',
+  READ_QA: 'posts/read',
 };
 
 export default API;

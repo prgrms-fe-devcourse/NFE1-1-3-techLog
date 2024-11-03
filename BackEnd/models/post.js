@@ -7,8 +7,14 @@ const postSchema = new Schema({
   category: { type: String, required: true },
   shortAnswer: { type: String, required: true },
   detailedAnswer: { type: String, required: true },
-  authorId: { type: String, required: true },
-
+  //게시글 권한 판별 : 모델 수정
+  // authorId를 MongoDB ObjectId 참조로 변경
+  authorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  
   //한국 시간으로 변경
   createdAt: { 
     type: String, 
@@ -17,7 +23,8 @@ const postSchema = new Schema({
   updatedAt: { 
     type: String, 
     default: () => moment.tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss") 
-  }
+  },
+
 });
 
 // 데이터가 업데이트될 때마다 updatedAt 필드를 자동으로 갱신
