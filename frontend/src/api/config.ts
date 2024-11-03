@@ -11,7 +11,7 @@ const API = {
   READ: 'posts/read',
   EDIT: 'posts/update',
   READ_QA_LIST: 'posts/all',
-  READ_QA: 'posts/read'
+  READ_QA: 'posts/read',
 };
 
 export default API;
