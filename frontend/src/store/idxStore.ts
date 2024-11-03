@@ -7,7 +7,7 @@ interface StoreState {
 
 const useIdxStore = create<StoreState>(set => ({
   activeIndex: 0,
-  setActiveIndex: index => set({ activeIndex: index })
+  setActiveIndex: index => set({ activeIndex: index }),
 }));
 
 export default useIdxStore;
