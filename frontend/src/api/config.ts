@@ -4,6 +4,8 @@ const API = {
   BASE_URL: `${BASE_URL}`,
   LOGIN: `user/login`,
   LOGOUT: 'user/logout',
+  SIGNUP: `user/signup`,
+  DUPLICATE: `user/idCheck`,
   REGISTER: 'posts/create',
   DELETE: 'posts/delete',
   READ: 'posts/read',

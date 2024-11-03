@@ -50,6 +50,15 @@ export const ErrorMessage = styled.p`
   left: 0;
 `;
 
+export const SuccessMessage = styled.p`
+  text-align: left;
+  color: green;
+  margin: 0;
+  position: absolute;
+  top: 90%;
+  left: 0;
+`;
+
 export const DuplicateButtonWrapper = styled.div`
   margin-top: 25px;
   align-self: flex-start;
