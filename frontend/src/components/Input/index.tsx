@@ -38,7 +38,7 @@ function InputWithLabel({
   placeholder,
   type,
   onChange,
-  width
+  width,
 }: InputWithLabelProps) {
   return (
     <div>
