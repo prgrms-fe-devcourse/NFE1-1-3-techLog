@@ -1,4 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const glowAnimation = keyframes`
+  0% {
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.5), 0 0 10px rgba(128, 128, 128, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.8), 0 0 30px rgba(128, 128, 128, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.5), 0 0 10px rgba(128, 128, 128, 0.5);
+  }
+`;
 
 export const FlipCard = styled.div`
   perspective: 1000px;
@@ -12,7 +24,10 @@ export const FlipCardInner = styled.div<{ isFlipped: boolean }>`
   height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  transform: ${({ isFlipped }) => isFlipped ? 'rotateY(180deg)' : 'rotateY(0)'};
+  transform: ${({ isFlipped }) =>
+    isFlipped
+      ? 'rotateY(180deg) perspective(1000px)'
+      : 'rotateY(0) perspective(1000px)'};
 `;
 
 export const FlipCardFront = styled.div<{ isEven?: boolean }>`
@@ -29,6 +44,7 @@ export const FlipCardFront = styled.div<{ isEven?: boolean }>`
 
 export const FlipCardBack = styled(FlipCardFront)`
   transform: rotateY(180deg);
+  animation: ${glowAnimation} 2s ease-in-out infinite;
 `;
 
 export const Title = styled.div`

@@ -37,7 +37,7 @@ function DuplicateButton({
   title,
   width,
   onClick,
-  disabled
+  disabled,
 }: DuplicateButtonProps) {
   return (
     <Button width={width} onClick={onClick} disabled={disabled}>

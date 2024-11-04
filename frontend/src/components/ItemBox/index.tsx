@@ -7,7 +7,7 @@ function ItemBox({
   _id,
   shortAnswer,
   title,
-  isEven
+  isEven,
 }: Partial<QaDataWithOnClick>) {
   const [isFlipped, setIsFlipped] = useState(false);
   const openReadModal = useModalStore(state => state.openReadModal);
