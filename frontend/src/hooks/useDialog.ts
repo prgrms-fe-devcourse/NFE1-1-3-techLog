@@ -22,6 +22,6 @@ export default function useDialog() {
     handleCancel,
     Tabs,
     activeIndex,
-    setIsDialogOpen
+    setIsDialogOpen,
   };
 }

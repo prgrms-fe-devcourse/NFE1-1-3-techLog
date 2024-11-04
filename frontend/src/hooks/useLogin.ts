@@ -14,14 +14,14 @@ export default function useLogin() {
       label: '아이디',
       placeholder: '아이디를 입력하세요',
       onChange: onChangeUsername,
-      width: '50rem'
+      width: '50rem',
     },
     {
       label: '비밀번호',
       placeholder: '비밀번호를 입력하세요',
       onChange: onChangePassword,
-      width: '50rem'
-    }
+      width: '50rem',
+    },
   ];
   const mutateLogin = useMutation({
     mutationFn: authLogin,
@@ -32,7 +32,7 @@ export default function useLogin() {
     onError: error => {
       if (error.message.includes('401'))
         alert('아이디 또는 비밀번호를 확인해주세요.');
-    }
+    },
   });
 
   return { inputs, mutateLogin, password, username };
