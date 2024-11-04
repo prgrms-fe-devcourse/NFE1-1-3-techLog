@@ -22,7 +22,7 @@ const Inner = styled.div`
 
 const Container = styled.div`
   flex-grow: 1;
-  justify-content: center;
+  margin-left: 30rem;
 `;
 export default function MainLayout() {
   return (

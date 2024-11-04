@@ -30,6 +30,7 @@ export const PlusButton = styled.button`
   font-weight: normal;
   color: black;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 999;
 `;
 
 export const MainPage = styled.div`

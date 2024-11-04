@@ -1,6 +1,7 @@
 const { Server } = require('socket.io');
 const path = require('path');
 const Comment = require(path.join(__dirname, '../models/comment'));
+const mongoose = require('mongoose');
 
 class SocketServer {
   constructor(server) {
@@ -126,9 +127,10 @@ class SocketServer {
             throw new Error('필수 입력 항목이 누락되었습니다.');
           }
 
+          // string 타입의 ID도 허용하도록 수정
           const comment = await Comment.create({
-            userId: commentData.userId,
-            postId: commentData.postId,
+            userId: commentData.userId, // string 타입 허용
+            postId: commentData.postId, // string 타입 허용
             content: commentData.content,
           });
 
