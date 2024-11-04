@@ -8,6 +8,8 @@ import { deleteQA, loadQA } from '../../api/questionAnswer';
 import useModalStore from '../../store/modalStore';
 import useDialog from '../../hooks/useDialog';
 import Dialog from '../Dialog';
+import CommentSection from '../Comment';
+import CommentInput from '../Input/CommentInput';
 
 function ModalRead({ onEdit }: ModalProps) {
   const { isReadModalOpen, modalId, closeReadModal } = useModalStore();
@@ -33,6 +35,11 @@ function ModalRead({ onEdit }: ModalProps) {
   });
 
   console.log('username', data?.data);
+
+  const handleCommentSubmit = (comment: any) => {
+    // 댓글을 추가하는 로직을 여기에 추가하세요.
+    console.log('New comment:', comment);
+  };
 
   return (
     <>
@@ -72,6 +79,32 @@ function ModalRead({ onEdit }: ModalProps) {
             </>
           )}
         </S.ButtonGroup>
+        <CommentSection
+          comments={[
+            {
+              username: 'aabbcc123',
+              time: '2024-11-03 11:48',
+              contents: '댓글 내용 예시입니다.',
+            },
+            {
+              username: 'ddeeff123',
+              time: '2024-11-03 11:48',
+              contents: '다른 댓글 내용 예시입니다.',
+            },
+            {
+              username: 'ddeeff123',
+              time: '2024-11-03 11:48',
+              contents: '다른 댓글 내용 예시입니다.',
+            },
+            {
+              username: 'ddeeff123',
+              time: '2024-11-03 11:48',
+              contents: '다른 댓글 내용 예시입니다.',
+            },
+            // 다른 댓글 데이터들
+          ]}
+        />
+        <CommentInput onSubmit={handleCommentSubmit} />
       </Modal>
     </>
   );

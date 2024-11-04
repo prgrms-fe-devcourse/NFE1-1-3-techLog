@@ -18,7 +18,6 @@ export const ModalContent = styled.div`
   padding: 2rem 3rem 2rem 3rem;
   width: 87rem;
   border-radius: 15px;
-  height: 52.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
