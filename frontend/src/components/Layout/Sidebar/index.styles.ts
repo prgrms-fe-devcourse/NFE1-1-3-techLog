@@ -14,7 +14,12 @@ export const Container = styled.div`
     font-style: italic;
     padding-bottom: 3rem;
   }
-  position: relative;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  background-color: white;
 `;
 export const MenuBar = styled.div`
   padding: 0 2rem;
