@@ -22,8 +22,6 @@ const Inner = styled.div`
 
 const Container = styled.div`
   flex-grow: 1;
-  display: flex;
-  justify-content: end;
   margin-left: 30rem;
 `;
 export default function MainLayout() {
