@@ -43,9 +43,7 @@ function ModalForm({ onClose }: ModalProps) {
       setQuestion(data.data.title);
       setShortAnswer(data.data.shortAnswer);
       setDetailedAnswer(data.data.detailedAnswer);
-      console.log('isEditMode2', isEditMode, modalId);
     } else {
-      console.log('isEditMode', isEditMode);
       setSelectedCategory('');
       setQuestion('');
       setShortAnswer('');
