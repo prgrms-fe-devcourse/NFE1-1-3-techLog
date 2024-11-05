@@ -2,9 +2,11 @@ import React from 'react';
 import * as S from './index.styles';
 
 interface Comment {
-  username: string;
-  time: string;
-  contents: string;
+  _id?: string;
+  userId: string;
+  postId: string;
+  content: string;
+  createdAt?: string;
 }
 
 interface CommentSectionProps {
@@ -12,6 +14,8 @@ interface CommentSectionProps {
 }
 
 function CommentSection({ comments }: CommentSectionProps) {
+  console.log('commentscommentscomments', comments);
+
   return (
     <S.CommentSection>
       <S.Separator />
@@ -19,10 +23,10 @@ function CommentSection({ comments }: CommentSectionProps) {
       {comments.map(comment => (
         <S.Comment>
           <S.CommentHeader>
-            <S.CommentUsername>{comment.username}</S.CommentUsername>
-            <S.CommentTime>{comment.time}</S.CommentTime>
+            <S.CommentUsername>{comment.userId}</S.CommentUsername>
+            <S.CommentTime>{comment.createdAt}</S.CommentTime>
           </S.CommentHeader>
-          <S.CommentContent>{comment.contents}</S.CommentContent>
+          <S.CommentContent>{comment.content}</S.CommentContent>
         </S.Comment>
       ))}
     </S.CommentSection>
