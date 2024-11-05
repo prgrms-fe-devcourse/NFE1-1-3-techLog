@@ -29,8 +29,10 @@ export default function Sidebar() {
       localStorage.clear();
       setIsDialogOpen(false);
       navigate(PATH.MAIN);
+      alert('로그아웃 되었습니다.');
     } catch (err) {
       console.log(err);
+      alert('로그아웃을 실패했습니다.');
     }
   };
   return (
@@ -51,6 +53,7 @@ export default function Sidebar() {
         <S.ListContainer>
           {['All', 'React', 'CS', 'Network'].map((item, index) => (
             <S.ListItem
+              key={item}
               isActive={activeIndex === index}
               onClick={() => handleClick(index)}
             >
