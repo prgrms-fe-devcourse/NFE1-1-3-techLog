@@ -39,7 +39,6 @@ function CommentSection({ comments }: CommentSectionProps) {
           <S.CommentContent>{comment.content}</S.CommentContent>
         </S.Comment>
       ))}
-      {/* 스크롤 이동을 위한 ref */}
       <div ref={commentEndRef} />
     </S.CommentSection>
   );
