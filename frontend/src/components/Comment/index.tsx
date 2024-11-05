@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as S from './index.styles';
 
 interface Comment {
@@ -14,14 +14,24 @@ interface CommentSectionProps {
 }
 
 function CommentSection({ comments }: CommentSectionProps) {
-  console.log('commentscommentscomments', comments);
+  const commentEndRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    if (commentEndRef.current) {
+      commentEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [comments]);
 
   return (
     <S.CommentSection>
       <S.Separator />
       <h3>댓글</h3>
       {comments.map(comment => (
-        <S.Comment>
+        <S.Comment key={comment._id}>
           <S.CommentHeader>
             <S.CommentUsername>{comment.userId}</S.CommentUsername>
             <S.CommentTime>{comment.createdAt}</S.CommentTime>
@@ -29,6 +39,8 @@ function CommentSection({ comments }: CommentSectionProps) {
           <S.CommentContent>{comment.content}</S.CommentContent>
         </S.Comment>
       ))}
+      {/* 스크롤 이동을 위한 ref */}
+      <div ref={commentEndRef} />
     </S.CommentSection>
   );
 }
