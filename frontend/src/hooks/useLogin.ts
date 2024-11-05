@@ -28,6 +28,7 @@ export default function useLogin() {
     onSuccess: data => {
       localStorage.setItem('username', data.data.username);
       navigate(PATH.MAIN);
+      alert('로그인 되었습니다.');
     },
     onError: error => {
       if (error.message.includes('401'))
