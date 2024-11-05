@@ -108,10 +108,7 @@ function ModalRead({ onEdit }: ModalProps) {
     };
 
     socket.emit('new_comment', newComment);
-    setComments(prevComments => [
-      ...prevComments,
-      { ...newComment, createdAt: new Date().toISOString() },
-    ]);
+    // UI 업데이트는 comment_added 이벤트에서만 처리
   };
 
   return (
