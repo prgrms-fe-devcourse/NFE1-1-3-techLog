@@ -21,4 +21,6 @@ router.get('/all', readAllController.readAllPosts);
 router.get('/read/:id', readController.readPost);
 router.put('/update/:id', verifyToken, updateController.updatePost);
 
+
+
 module.exports = router;
