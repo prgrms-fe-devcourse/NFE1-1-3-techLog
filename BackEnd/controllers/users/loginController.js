@@ -2,8 +2,8 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 const secretKey = process.env.SECRET_KEY;
-const TOKEN_EXPIRE_TIME = '10m';
-const COOKIE_EXPIRE_TIME = 10 * 60 * 1000;
+const TOKEN_EXPIRE_TIME = '30m';
+const COOKIE_EXPIRE_TIME = 30 * 60 * 1000;
 
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
@@ -33,7 +33,7 @@ exports.loginUser = async (req, res) => {
     // 비밀번호 검증
     const isPasswordCorrect = await bcryptjs.compare(
       password,
-      userDoc.password,
+      userDoc.password
     );
     if (!isPasswordCorrect) {
       return res.status(401).json({

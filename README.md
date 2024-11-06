@@ -1,4 +1,4 @@
-# 기술면접 핸드북 TechLog
+# 📘 Flip Card로 효과적으로 학습하는 기술면접 핸드북
 
 플립 카드를 사용해 CS 개념을 정리하여 공부할 수 있는 기술면접 핸드북입니다.
 
@@ -31,11 +31,17 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 - 사용자가 익명으로 기술 면접 질문을 등록하고, 다른 사용자의 답변을 통해 면접 준비에 도움을 받을 수 있습니다.
 - 질문 목록은 main 페이지에서 Grid 형식으로 제공되며, 카드를 클릭 시 카드 뒤집기 애니메이션을 통해 답변이 표시됩니다.
 
+**✔️질문, 답변 등록 기능**
+
+- 사용자들이 자신의 질문/답변을 쉽게 등록할 수 있도록 간단한 등록 모달을 제공하고 있으며, 질문과 답변 모두 작성 후 한 번에 등록합니다.
+
+<img src="https://github.com/user-attachments/assets/c3eed67e-19b3-40c8-aa02-92776eb5a3e9" width="500"/>
+
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/a9bc58f2-7500-45b9-8ead-60ebed7a9c8d" />
+<img src="https://github.com/user-attachments/assets/ecc3f8f0-7370-4be3-be90-f3ea9333e9d6" width="500"/>
 
 **✔️질문 답변 및 상세 보기**
 
@@ -45,13 +51,13 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 - 각 카드의 상세 페이지에서 실시간으로 여러 사용자들과 채팅을 통해 소통하며 정보를 공유하고 얻을 수 있습니다.
 
-**✔️질문, 답변 등록 기능**
-
-- 사용자들이 자신의 질문/답변을 쉽게 등록할 수 있도록 간단한 등록 모달을 제공하고 있으며, 질문과 답변 모두 작성 후 한 번에 등록합니다.
+<p><img src="https://github.com/user-attachments/assets/0cb25912-589b-430c-b979-652edf5d135e" width="500"/>
 
 **✔️마이페이지 기능**
 
 - 회원가입, 로그인을 통해 글을 쓰거나/삭제/수정 기능을 이용할 수 있으며, 마이페이지를 통해 자신이 쓴 카드 리스트를 관리할 수 있습니다.
+
+<img src="https://github.com/user-attachments/assets/664a7c13-ee60-4daf-bf1d-7ea5a416a479" width="500"/>
 
 <br />
 
@@ -183,6 +189,36 @@ root/
 └── frontend/                     # 프론트엔드 디렉토리 (리액트)
   </code></pre>
 </details>
+
+<br />
+
+## 🔄 User Flow
+
+<img src="https://ifh.cc/g/QCJzpv.jpg" />
+
+**주요 사용자 흐름**<br />
+
+1. 비로그인 사용자: 카드 열람 및 회원가입 가능
+2. 로그인 사용자: 카드 작성/수정/삭제, 실시간 채팅 참여, 마이페이지 이용 가능
+3. 마이페이지: 자신이 작성한 카드 관리 가능
+
+<br />
+
+## 📊 Database Schema
+
+<img src="https://ifh.cc/g/aasd7P.png" />
+
+**Collection**<br />
+
+1. user
+   - 사용자 정보 관리
+   - 사용자 id(username), 비밀번호(password) 저장
+2. post
+   - 질문과 답변 정보 관리
+   - 제목(title), 카테고리(category), 짧은 답변(shortAnswer), 긴 답변(detailedAnswer), 작성자 id(user 스키마의 objectId), 작성 시간(createdAt), 수정시간(updatedAt) 저장
+3. comment
+   - 실시간 채팅 메세지 저장
+   - 작성자id(userId), 글id(postId), 댓글내용(content), 댓글 업로드 시간(createdAt) 저장
 
 <br />
 
