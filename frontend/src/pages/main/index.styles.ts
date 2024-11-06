@@ -32,6 +32,14 @@ export const PlusButton = styled.button`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 999;
 `;
+export const MypageH1 = styled.div`
+  font-size: 3.5rem;
+  margin: 0;
+  strong {
+    font-size: 4.5rem;
+    font-weight: 600;
+  }
+`;
 
 export const MainPage = styled.div`
   width: 100%;
@@ -43,4 +51,12 @@ export const ItemBoxGrid = styled.div`
   grid-gap: 4rem;
   width: 96rem;
   padding-top: 2rem;
+`;
+
+export const EmptyMessage = styled.div`
+  font-size: 2rem;
+  color: #aaa;
+  margin-top: 5rem;
+  font-weight: 500;
+  width: 100%;
 `;

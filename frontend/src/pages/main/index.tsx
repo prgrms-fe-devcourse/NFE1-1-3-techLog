@@ -95,24 +95,37 @@ export default function Main() {
       </S.PlusButton>
 
       <S.MainPage>
-        <h1>{Tabs[activeIndex]}</h1>
-        <S.ItemBoxGrid>
-          {(activeIndex === 4 ? mypageFilteredData : filteredData)?.map(
-            (item: QaData, index: number) => (
-              <ItemBox
-                key={item._id}
-                _id={item._id}
-                title={item.title}
-                shortAnswer={item.shortAnswer}
-                showAnswer={
-                  item._id ? showAnswerState[item._id] || false : false
-                }
-                onClick={() => item._id && toggleAnswer(item._id)}
-                isEven={index % 2 === 0}
-              />
-            )
-          )}
-        </S.ItemBoxGrid>
+        {activeIndex === 4 ? (
+          <S.MypageH1>
+            <strong>{username}</strong>님의 질문카드 모음
+          </S.MypageH1>
+        ) : (
+          <h1>{Tabs[activeIndex]}</h1>
+        )}
+
+        {activeIndex === 4 && mypageFilteredData.length === 0 ? (
+          <S.EmptyMessage>
+            아직 질문카드가 없어요. 첫 질문카드를 등록해보세요!
+          </S.EmptyMessage>
+        ) : (
+          <S.ItemBoxGrid>
+            {(activeIndex === 4 ? mypageFilteredData : filteredData)?.map(
+              (item: QaData, index: number) => (
+                <ItemBox
+                  key={item._id}
+                  _id={item._id}
+                  title={item.title}
+                  shortAnswer={item.shortAnswer}
+                  showAnswer={
+                    item._id ? showAnswerState[item._id] || false : false
+                  }
+                  onClick={() => item._id && toggleAnswer(item._id)}
+                  isEven={index % 2 === 0}
+                />
+              )
+            )}
+          </S.ItemBoxGrid>
+        )}
       </S.MainPage>
     </S.Container>
   );
