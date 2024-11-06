@@ -37,15 +37,15 @@ export const MenuBar = styled.div`
   }
 `;
 export const LogoContainer = styled.div`
-  margin-bottom: 0;
+  margin-bottom: 20px;
   margin-left: 0;
   margin-right: 20px;
-  margin-top: -60px;
+  margin-top: -20px;
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    max-width: 45%;
+    max-width: 47%;
     height: auto;
     margin-right: -25px;
     &:last-child {
