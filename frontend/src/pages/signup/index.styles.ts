@@ -63,3 +63,21 @@ export const DuplicateButtonWrapper = styled.div`
   margin-top: 25px;
   align-self: flex-start;
 `;
+export const LogoContainer = styled.div`
+  margin-bottom: 10px;
+  margin-left: 0;
+  margin-right: 20px;
+  margin-top: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 27%;
+    height: auto;
+    margin-right: -35px;
+    &:last-child {
+      margin-right: 0;
+      margin-top: 12px;
+    }
+  }
+`;

@@ -30,3 +30,22 @@ export const UnderlinedText = styled.span`
   cursor: pointer;
   padding-left: 1rem;
 `;
+
+export const LogoContainer = styled.div`
+  margin-bottom: 10px;
+  margin-left: 0;
+  margin-right: 20px;
+  margin-top: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 27%;
+    height: auto;
+    margin-right: -35px;
+    &:last-child {
+      margin-right: 0;
+      margin-top: 12px;
+    }
+  }
+`;

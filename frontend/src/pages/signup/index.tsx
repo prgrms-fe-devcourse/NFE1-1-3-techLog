@@ -8,11 +8,14 @@ import {
   ErrorMessage,
   SuccessMessage,
   DuplicateButtonWrapper,
+  LogoContainer,
 } from './index.styles';
 import InputWithLabel from '../../components/Input';
 import DuplicateButton from '../../components/Button/DuplicateButton/index';
 import SigninButton from '../../components/Button/SignButton';
 import { authSignup } from '../../api/auth';
+import DevFlipLogo1 from '../../assets/DevFlipLogo1.png';
+import DevFlipLogo2 from '../../assets/DevFlipLogo2.png';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -147,7 +150,10 @@ export default function Signup() {
 
   return (
     <Container>
-      <h1>Tech log</h1>
+      <LogoContainer>
+        <img src={DevFlipLogo1} alt="DevFlip Logo" />
+        <img src={DevFlipLogo2} alt="DevFlip Logo" />
+      </LogoContainer>
       <h2>개발자들을 위한 기술 면접 공유 플랫폼</h2>
       <FlexContainer>
         <InputIDWrapper>
