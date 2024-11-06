@@ -36,7 +36,24 @@ export const MenuBar = styled.div`
     font-style: italic;
   }
 `;
-
+export const LogoContainer = styled.div`
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 20px;
+  margin-top: -60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 45%;
+    height: auto;
+    margin-right: -25px;
+    &:last-child {
+      margin-right: 0;
+      margin-top: 10px;
+    }
+  }
+`;
 export const ListContainer = styled.ul`
   list-style-type: none;
   padding: 0;
@@ -47,7 +64,7 @@ export const ListItem = styled.li<{
   isLastItem?: boolean;
   isSecondLastItem?: boolean;
 }>`
-  background-color: ${({ isActive }) => (isActive ? '#6a6982' : 'white')};
+  background-color: ${({ isActive }) => (isActive ? 'black' : 'white')};
   color: ${({ isActive }) => (isActive ? 'white' : 'black')};
   padding: 1.5rem 4.7rem;
   margin: 5px 0;

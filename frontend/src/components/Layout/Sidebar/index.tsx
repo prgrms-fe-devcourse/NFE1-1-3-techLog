@@ -6,6 +6,8 @@ import useStore from '../../../store/idxStore';
 import Dialog from '../../Dialog';
 import useDialog from '../../../hooks/useDialog';
 import { authLogout } from '../../../api/auth';
+import DevFlipLogo1 from '../../../assets/DevFlipLogo1.png';
+import DevFlipLogo2 from '../../../assets/DevFlipLogo2.png';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -47,7 +49,10 @@ export default function Sidebar() {
           cancelTitle="취소"
         />
       )}
-      <h1>Tech log</h1>
+      <S.LogoContainer>
+        <img src={DevFlipLogo1} alt="DevFlip Logo" />
+        <img src={DevFlipLogo2} alt="DevFlip Logo" />
+      </S.LogoContainer>
       <S.MenuBar>
         <h2>Category</h2>
         <S.ListContainer>
