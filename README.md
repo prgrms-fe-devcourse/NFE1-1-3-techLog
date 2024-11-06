@@ -45,7 +45,7 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 - 각 카드의 상세 페이지에서 실시간으로 여러 사용자들과 채팅을 통해 소통하며 정보를 공유하고 얻을 수 있습니다.
 
-<p><img src="https://github.com/user-attachments/assets/0cb25912-589b-430c-b979-652edf5d135e" width="100%"/>
+<p><img src="https://github.com/user-attachments/assets/0cb25912-589b-430c-b979-652edf5d135e"/>
 
 **✔️질문, 답변 등록 기능**
 
@@ -55,7 +55,7 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 - 회원가입, 로그인을 통해 글을 쓰거나/삭제/수정 기능을 이용할 수 있으며, 마이페이지를 통해 자신이 쓴 카드 리스트를 관리할 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/664a7c13-ee60-4daf-bf1d-7ea5a416a479" width="100%"/>
+<img src="https://github.com/user-attachments/assets/664a7c13-ee60-4daf-bf1d-7ea5a416a479"/>
 
 <br />
 
