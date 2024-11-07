@@ -45,7 +45,6 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 <img src="https://github.com/user-attachments/assets/7c8b420f-fb3b-4f62-9091-95d44371945d" width="600" />
 <p>
 
-
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
@@ -64,7 +63,6 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 - 각 카드의 상세 페이지에서 실시간으로 여러 사용자들과 채팅을 통해 소통하며 정보를 공유하고 얻을 수 있습니다.
 <img src="https://github.com/user-attachments/assets/29ac572f-740e-4fb1-b463-c616db3f1136" width="600"/>
 <p>
-
 
 **✔️마이페이지 기능**
 
@@ -289,13 +287,15 @@ nodemon server.js or node server.js or npm run server
 
 ## 🛠트러블 슈팅
 
-노션 링크 or pdf(ppt) 첨부
+[wiki에서 참고](https://github.com/prgrms-fe-devcourse/NFE1-1-3-techLog/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-&-%EC%BD%94%EB%93%9C-%EA%B0%9C%EC%84%A0-%EA%B3%BC%EC%A0%95-%EB%AC%B8%EC%84%9C)
 
 <br />
 
 ## 🔧향후 개선 사항
 
-이건 이슈 정리하면서 하면 될 듯..
+- 카테고리 추가
+- 예외 처리 보강
+- 스크랩 기능 추가 -> 다른 사용자들의 질문 관리
 
 <br />
 
