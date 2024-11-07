@@ -79,6 +79,8 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
 <img src="https://img.shields.io/badge/Styled--Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 <img src="https://img.shields.io/badge/React--Query-FF4154?style=for-the-badge&logo=React-Query&logoColor=white">
+<img src="https://img.shields.io/badge/Zustand-181717?style=for-the-badge&logo=Zustand&logoColor=white">
+<img src="https://img.shields.io/badge/Socket.IO_Client-010101?style=for-the-badge&logo=Socket.io&logoColor=white">
 </div>
 
 ### 📌Back-end
