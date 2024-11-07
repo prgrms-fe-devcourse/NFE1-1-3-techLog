@@ -43,13 +43,13 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 - 사용자들이 자신의 질문/답변을 쉽게 등록할 수 있도록 간단한 등록 모달을 제공하고 있으며, 질문과 답변 모두 작성 후 한 번에 등록합니다.
 
-<img src="https://github.com/user-attachments/assets/136edc04-7fe1-433a-a645-ad1488e39c1f" width="500" />
+<img src="https://github.com/user-attachments/assets/070971cb-b877-44e0-a5d1-037497cb1bb6" width="500" />
 
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/ecc3f8f0-7370-4be3-be90-f3ea9333e9d6" width="500"/>
+<img src="https://github.com/user-attachments/assets/a3befe7d-40d0-4813-b09d-04bd6e432bb7" width="500"/>
 
 **✔️질문 답변 및 상세 보기**
 
@@ -59,13 +59,13 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 
 - 각 카드의 상세 페이지에서 실시간으로 여러 사용자들과 채팅을 통해 소통하며 정보를 공유하고 얻을 수 있습니다.
 
-<p><img src="https://github.com/user-attachments/assets/0cb25912-589b-430c-b979-652edf5d135e" width="500"/>
+<p><img src="https://github.com/user-attachments/assets/6416ce43-d0e4-4858-b083-b7535f174919" width="500"/>
 
 **✔️마이페이지 기능**
 
 - 회원가입, 로그인을 통해 글을 쓰거나/삭제/수정 기능을 이용할 수 있으며, 마이페이지를 통해 자신이 쓴 카드 리스트를 관리할 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/664a7c13-ee60-4daf-bf1d-7ea5a416a479" width="500"/>
+<img src="https://github.com/user-attachments/assets/ba75af85-b9db-4ab3-bed4-be0fc9e6a1f3" width="500"/>
 
 <br />
 
