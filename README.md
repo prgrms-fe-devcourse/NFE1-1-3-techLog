@@ -39,34 +39,37 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 - 사용자가 익명으로 기술 면접 질문을 등록하고, 다른 사용자의 답변을 통해 면접 준비에 도움을 받을 수 있습니다.
 - 질문 목록은 main 페이지에서 Grid 형식으로 제공되며, 카드를 클릭 시 카드 뒤집기 애니메이션을 통해 답변이 표시됩니다.
 
+  
 **✔️질문, 답변 등록 기능**
 
 - 사용자들이 자신의 질문/답변을 쉽게 등록할 수 있도록 간단한 등록 모달을 제공하고 있으며, 질문과 답변 모두 작성 후 한 번에 등록합니다.
-<img src="https://github.com/user-attachments/assets/3676dd6e-7b7b-47ce-9e0b-81f02ce3323e" width="500" />
-
-<img src="https://github.com/user-attachments/assets/070971cb-b877-44e0-a5d1-037497cb1bb6" width="500" />
-
+<img src="https://github.com/user-attachments/assets/7c8b420f-fb3b-4f62-9091-95d44371945d" width="600" />
+<p>
+  
 **✔️카드 flip 효과를 통한 직관적인 답변 확인**
 
 - 사용자가 질문을 클릭하면 카드가 뒤집히면서 답변이 나타나는 시각적인 효과를 통해 학습 효과를 높일 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/a3befe7d-40d0-4813-b09d-04bd6e432bb7" width="500"/>
-
+<img src="https://github.com/user-attachments/assets/ac5f5568-d08c-43f8-98b5-1ea25f99d55f" width="600"/>
+<p>
+  
 **✔️질문 답변 및 상세 보기**
 
 - 답변을 확인 후, 더 자세한 정보를 원할 경우 "상세보기" 버튼을 클릭하여 해당 질문에 대한 상세 답변을 확인할 수 있습니다.
+<img src="https://github.com/user-attachments/assets/c0f436d0-6423-4975-80f8-7530a7537d14" width="600"/>
+<p>
 
 **✔️다른 사용자들과 실시간 채팅**
 
 - 각 카드의 상세 페이지에서 실시간으로 여러 사용자들과 채팅을 통해 소통하며 정보를 공유하고 얻을 수 있습니다.
-
-<p><img src="https://github.com/user-attachments/assets/6416ce43-d0e4-4858-b083-b7535f174919" width="500"/>
-
+<img src="https://github.com/user-attachments/assets/29ac572f-740e-4fb1-b463-c616db3f1136" width="600"/>
+<p>
+  
 **✔️마이페이지 기능**
 
 - 회원가입, 로그인을 통해 글을 쓰거나/삭제/수정 기능을 이용할 수 있으며, 마이페이지를 통해 자신이 쓴 카드 리스트를 관리할 수 있습니다.
 
-<img src="https://github.com/user-attachments/assets/ba75af85-b9db-4ab3-bed4-be0fc9e6a1f3" width="500"/>
+<img src="https://github.com/user-attachments/assets/31c08b42-a801-40e5-8398-f7b2f19b4f16" width="600"/>
 
 <br />
 
