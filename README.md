@@ -42,6 +42,7 @@ TechLog는 CS 개념을 카테고리별로 정리하고, 여러 사용자들과�
 **✔️질문, 답변 등록 기능**
 
 - 사용자들이 자신의 질문/답변을 쉽게 등록할 수 있도록 간단한 등록 모달을 제공하고 있으며, 질문과 답변 모두 작성 후 한 번에 등록합니다.
+<img src="https://github.com/user-attachments/assets/3676dd6e-7b7b-47ce-9e0b-81f02ce3323e" width="500" />
 
 <img src="https://github.com/user-attachments/assets/070971cb-b877-44e0-a5d1-037497cb1bb6" width="500" />
 
