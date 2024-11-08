@@ -94,7 +94,7 @@ export default function Signup() {
       } else {
         setErrors(prevErrors => ({
           ...prevErrors,
-          username: '아이디는 소문자 6자 이상 18자 이내여야 합니다.',
+          username: '아이디는 영문 소문자, 숫자 조합으로 6~18자여야 합니다.',
         }));
         setIsUsernameValid(false);
         setIsDuplicateCheckClicked(false);
@@ -115,7 +115,7 @@ export default function Signup() {
         setErrors(prevErrors => ({
           ...prevErrors,
           password:
-            '비밀번호는 대소문자, 숫자, 특수문자를 포함해 10~18자이어야 합니다.',
+            '비밀번호는 영문 대/소문자, 숫자, 특수문자 조합으로 10~18자여야 합니다.',
         }));
       }
     }
@@ -137,7 +137,7 @@ export default function Signup() {
       setIsUsernameDuplicate(true);
       setErrors(prevErrors => ({
         ...prevErrors,
-        username: '존재하고 있는 아이디입니다.',
+        username: '사용 중인 아이디입니다.',
       }));
       setSuccessMessage('');
     } else {
